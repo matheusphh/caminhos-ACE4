@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f3ec">
+  <meta name="description" content="Uma viagem interativa pela energia elétrica: da produção ao uso cotidiano na UFRB.">
+  <title>Uma viagem da energia — UFRB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <header class="topbar">
+    <a class="brand" href="#inicio" aria-label="Energia em percurso, início"><span class="brand-mark">ϟ</span><span>ENERGIA <i>EM PERCURSO</i></span></a>
+    <nav aria-label="Navegação principal"><a href="#jornada">A jornada</a><a href="#no-campus">No campus</a><a href="#agir">Faça parte</a></nav>
+    <a class="top-cta" href="#jornada">Explorar <span>↗</span></a>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="live-dot"></span> PROJETO DE EXTENSÃO · UFRB</p>
+        <h1 id="hero-title">Da fonte<br>à <span>tomada.</span></h1>
+        <p class="hero-lede">A energia faz uma longa viagem antes de acender uma sala, mover uma ideia ou conectar pessoas. Vamos seguir esse caminho?</p>
+        <a class="button button-dark" href="#jornada">Começar a jornada <span>↓</span></a>
+        <div class="hero-meta"><span>UMA HISTÓRIA EM MOVIMENTO</span><span>⏱ 4 MIN DE LEITURA</span></div>
+      </div>
+      <div class="hero-art" aria-label="Ilustração animada de uma usina conectada à universidade por linhas de energia">
+        <div class="art-label label-source">01 / PRODUÇÃO</div><div class="art-label label-campus">06 / UFRB</div>
+        <svg class="landscape" viewBox="0 0 760 620" role="img" aria-hidden="true">
+          <defs>
+            <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e6eddb"/><stop offset="1" stop-color="#c9d9c1"/></linearGradient>
+            <linearGradient id="hill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#71957b"/><stop offset="1" stop-color="#486e5a"/></linearGradient>
+          </defs>
+          <rect x="0" y="0" width="760" height="620" rx="30" fill="url(#sky)"/>
+          <circle cx="583" cy="118" r="53" fill="#edb84d" class="sun-pulse"/>
+          <path d="M0 390 Q140 290 260 380 T520 350 T760 370 V620 H0Z" fill="#9caf8e"/>
+          <path d="M0 454 Q160 356 312 440 T590 413 T760 436 V620 H0Z" fill="url(#hill)"/>
+          <g class="turbine" stroke="#27483a" stroke-width="6" stroke-linecap="round"><path d="M120 342V155"/><path d="M120 155L93 80M120 155L195 143M120 155L103 234"/><circle cx="120" cy="155" r="8" fill="#edb84d" stroke="none"/></g>
+          <g class="turbine turbine-two" stroke="#27483a" stroke-width="5" stroke-linecap="round"><path d="M229 372V218"/><path d="M229 218L208 155M229 218L289 207M229 218L216 281"/><circle cx="229" cy="218" r="7" fill="#edb84d" stroke="none"/></g>
+          <g class="solar"><path d="M354 402l96-12 22 61-103 10z" fill="#234b49"/><path d="M370 408l17 49m13-52 15 49m13-53 14 50m-77-27 99-12m-92 30 100-12" stroke="#8bb7a5" stroke-width="3"/><path d="M386 463v25m62-34 8 24" stroke="#d0c9a5" stroke-width="4"/></g>
+          <g class="campus"><path d="M521 396l94-45 99 45v10H521z" fill="#e7dcc1"/><path d="M535 406h167v113H535z" fill="#f4ead3"/><path d="M521 519h193" stroke="#27483a" stroke-width="5"/><path d="M558 431h25v31h-25zm45 0h25v31h-25zm45 0h25v31h-25z" fill="#83a39a"/><path d="M600 473h32v46h-32z" fill="#d79e45"/><path d="M581 351l34-22 35 22" fill="none" stroke="#27483a" stroke-width="5"/></g>
+          <path class="energy-path" d="M120 155 C230 135 261 270 350 300 S475 324 610 352" fill="none" stroke="#edb84d" stroke-width="4" stroke-dasharray="2 12" stroke-linecap="round"/>
+          <circle class="energy-orb" r="8" fill="#f8d875"><animateMotion dur="5s" repeatCount="indefinite" path="M120 155 C230 135 261 270 350 300 S475 324 610 352"/></circle>
+          <g fill="#27483a"><path d="M63 455v-51l21-24 21 24v51z"/><circle cx="84" cy="374" r="17"/><path d="M706 443v-42l18-22 18 22v42z"/><circle cx="724" cy="368" r="14"/></g>
+        </svg>
+        <div class="art-note"><span class="note-icon">✳</span><span>Uma rede conecta<br>lugares e pessoas.</span></div>
+        <div class="art-coord">12°39′S&nbsp; · &nbsp;39°05′W<br><small>RECÔNCAVO DA BAHIA</small></div>
+      </div>
+      <div class="hero-side">ENERGIA QUE CONECTA <span>—</span> SABERES QUE TRANSFORMAM</div>
+    </section>
+
+    <section class="intro-strip" aria-label="Sobre a jornada"><p>Não vemos o caminho inteiro.<br><strong>Mas fazemos parte dele.</strong></p><div class="strip-copy">Da natureza à rede elétrica, da rede ao campus: descubra de onde vem a energia que usamos e o que podemos fazer com ela.</div><span class="strip-star">✳</span></section>
+
+    <section class="journey section-pad" id="jornada" aria-labelledby="journey-title">
+      <div class="section-heading"><div><p class="eyebrow">SEIS ETAPAS · UMA REDE</p><h2 id="journey-title">Siga o <em>fio.</em></h2></div><p>Toque em cada ponto para acompanhar a eletricidade em seu percurso até a UFRB.</p></div>
+      <div class="journey-layout">
+        <div class="route-panel">
+          <div class="route-head"><span>O PERCURSO</span><span id="routeCount">01 — 06</span></div>
+          <div class="route-line" aria-hidden="true"><span class="route-progress"></span></div>
+          <ol class="route-list" aria-label="Etapas da viagem da energia">
+            <li><button class="route-stop active" data-step="0" aria-current="step"><span class="stop-number">01</span><span>Produção</span><span class="stop-icon">◉</span></button></li>
+            <li><button class="route-stop" data-step="1"><span class="stop-number">02</span><span>Elevação da tensão</span><span class="stop-icon">↗</span></button></li>
+            <li><button class="route-stop" data-step="2"><span class="stop-number">03</span><span>Transmissão</span><span class="stop-icon">⌁</span></button></li>
+            <li><button class="route-stop" data-step="3"><span class="stop-number">04</span><span>Distribuição</span><span class="stop-icon">⤵</span></button></li>
+            <li><button class="route-stop" data-step="4"><span class="stop-number">05</span><span>Uso consciente</span><span class="stop-icon">✳</span></button></li>
+            <li><button class="route-stop" data-step="5"><span class="stop-number">06</span><span>UFRB</span><span class="stop-icon">⌂</span></button></li>
+          </ol>
+          <div class="route-foot"><span>← DESLIZE OU USE AS SETAS →</span><span>01 / 06</span></div>
+        </div>
+        <article class="story-card" aria-live="polite" aria-atomic="true">
+          <div class="story-top"><span class="story-category">A JORNADA COMEÇA</span><span class="story-symbol" aria-hidden="true">◉</span></div>
+          <div class="story-body"><p class="story-index">ETAPA <span id="stepIndex">01</span></p><h3 id="stepTitle">Tudo começa<br>na natureza.</h3><p id="stepText">A eletricidade que chega até nós é produzida em usinas. No Brasil, diferentes fontes — como a força da água, do vento e do sol — podem transformar recursos naturais em energia elétrica.</p>
+          <div class="fact-box"><span class="fact-icon">i</span><p id="stepFact">Cada fonte tem características próprias. Conhecer essa diversidade ajuda a entender como a energia é produzida.</p></div></div>
+          <div class="story-bottom"><span id="stepTag">FONTE DE ENERGIA</span><div class="story-controls"><button class="arrow-button" id="prevStep" aria-label="Etapa anterior">←</button><button class="arrow-button next" id="nextStep" aria-label="Próxima etapa">→</button></div></div>
+        </article>
+        <div class="story-source" hidden aria-hidden="true">
+          <article data-story-step><p data-category>UM IMPULSO PARA IR LONGE</p><p data-index>02</p><h3 data-title>A tensão<br>ganha força.</h3><p data-text>Perto das usinas, transformadores elevam a tensão elétrica. Com a tensão mais alta, a energia pode percorrer grandes distâncias com menos perdas pelo caminho.</p><p data-fact>Transformadores ajustam a tensão para cada trecho da viagem: é como preparar a energia para uma longa estrada.</p><p data-tag>TRANSFORMAÇÃO</p><p data-symbol>↗</p></article>
+          <article data-story-step><p data-category>UMA VIAGEM EM REDE</p><p data-index>03</p><h3 data-title>Pelos caminhos<br>do Brasil.</h3><p data-text>Linhas e torres de transmissão conduzem a eletricidade entre regiões. Interligadas, elas formam uma rede que conecta lugares onde a energia é produzida aos lugares onde ela é necessária.</p><p data-fact>A rede elétrica interligada ajuda a levar energia de diferentes regiões até cidades e comunidades.</p><p data-tag>TRANSMISSÃO</p><p data-symbol>⌁</p></article>
+          <article data-story-step><p data-category>MAIS PERTO DE VOCÊ</p><p data-index>04</p><h3 data-title>A energia<br>chega à cidade.</h3><p data-text>Ao se aproximar dos centros de consumo, a energia passa por subestações e transformadores que reduzem a tensão. A rede de distribuição leva eletricidade até ruas, casas, serviços e instituições.</p><p data-fact>A distribuição é o trecho que conecta a rede elétrica aos espaços onde usamos energia todos os dias.</p><p data-tag>DISTRIBUIÇÃO</p><p data-symbol>⤵</p></article>
+          <article data-story-step><p data-category>UM CUIDADO DE TODO DIA</p><p data-index>05</p><h3 data-title>Cada escolha<br>também conta.</h3><p data-text>Luzes, computadores, equipamentos e sistemas fazem parte da rotina. Usar energia com atenção, evitar desperdícios e cuidar dos espaços compartilhados são atitudes que começam com cada pessoa.</p><p data-fact>Perceber como e quando usamos energia é um primeiro passo para conversar sobre consumo consciente.</p><p data-tag>USO CONSCIENTE</p><p data-symbol>✳</p></article>
+          <article data-story-step><p data-category>NOSSA HISTÓRIA CONTINUA AQUI</p><p data-index>06</p><h3 data-title>Na UFRB, a energia<br>vira encontro.</h3><p data-text>A eletricidade que chega aos campi da UFRB participa de aulas, pesquisas, serviços e encontros. Ela sustenta atividades que aproximam a universidade e as comunidades do Recôncavo.</p><p data-fact>A energia conecta a infraestrutura do campus às pessoas, ideias e atividades que fazem a universidade acontecer.</p><p data-tag>UNIVERSIDADE</p><p data-symbol>⌂</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="campus-section" id="no-campus">
+      <div class="campus-text"><p class="eyebrow">CHEGAMOS AO CAMPUS</p><h2>Energia em<br>todo <em>lugar.</em></h2><p>A eletricidade se transforma em conforto, comunicação e conhecimento. Nos espaços da UFRB, ela apoia aulas, pesquisas, serviços e encontros.</p><a class="text-link" href="#agir">E o que acontece depois? <span>↗</span></a></div>
+      <div class="campus-cards">
+        <article class="use-card use-lab"><span class="use-icon">⌬</span><span class="use-index">01 / PESQUISA</span><h3>Ideias em<br>movimento.</h3><p>Equipamentos e laboratórios ajudam a transformar curiosidade em conhecimento.</p><div class="card-lines"></div></article>
+        <article class="use-card use-class"><span class="use-icon">▤</span><span class="use-index">02 / APRENDIZAGEM</span><h3>Espaços para<br>aprender.</h3><p>Iluminação e conectividade aproximam estudantes, educadores e saberes.</p><div class="card-sun"></div></article>
+        <article class="use-card use-life"><span class="use-icon">⌂</span><span class="use-index">03 / COTIDIANO</span><h3>Uma rotina<br>conectada.</h3><p>Da biblioteca aos serviços, a energia está presente em muitas atividades do dia.</p><div class="card-wave"></div></article>
+      </div>
+    </section>
+
+    <section class="action-section" id="agir"><div class="action-stamp">PEQUENAS<br>AÇÕES ✳<br>GRANDE<br>IMPACTO</div><div class="action-content"><p class="eyebrow">A ENERGIA TAMBÉM É SUA</p><h2>O próximo passo<br>é <em>com a gente.</em></h2><p>Usar energia com atenção é um cuidado coletivo. Que tal observar os espaços que você frequenta e conversar sobre como podemos cuidar melhor deles?</p><div class="action-prompt"><span>UM CONVITE PARA A COMUNIDADE</span><span>Observe · Converse · Compartilhe</span></div></div><div class="action-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="bulb">ϟ</div><span class="orbit-label">ENERGIA<br>EM COMUM</span></div></section>
+
+    <section class="closing"><span class="closing-mark">ϟ</span><p>A energia percorre caminhos.<br><strong>O futuro também.</strong></p><a href="#inicio" aria-label="Voltar ao início">↑</a></section>
+  </main>
+  <footer><span>PROJETO DE EXTENSÃO · UNIVERSIDADE FEDERAL DO RECÔNCAVO DA BAHIA</span><a href="#inicio">VOLTAR AO TOPO ↑</a><span>ENERGIA EM PERCURSO © 2026</span></footer>
+</body>
+</html>
