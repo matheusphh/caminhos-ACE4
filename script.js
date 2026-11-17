@@ -35,6 +35,7 @@ function showStep(index) {
     document.querySelector('#stepText').textContent = step.text;
     document.querySelector('#stepFact').textContent = step.fact;
     document.querySelector('#stepTag').textContent = step.tag;
+    document.querySelector('#storyMore').href = `detalhe.html?etapa=${current}`;
     document.querySelector('#routeCount').textContent = `${step.index} — 06`;
     document.querySelector('.route-foot span:last-child').textContent = `${step.index} / 06`;
     document.querySelector('.route-progress').style.height = `${(current / (steps.length - 1)) * 100}%`;
@@ -64,3 +65,12 @@ card.addEventListener('touchend', (event) => {
   if (Math.abs(delta) > 55) showStep(current + (delta < 0 ? 1 : -1));
   touchStartX = null;
 }, { passive: true });
+card.addEventListener('click', (event) => {
+  if (event.target.closest('button, a')) return;
+  window.location.href = `detalhe.html?etapa=${current}`;
+});
+card.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter' || event.key === ' ') {
+    if (event.target === card) window.location.href = `detalhe.html?etapa=${current}`;
+  }
+});
