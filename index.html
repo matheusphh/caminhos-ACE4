@@ -10,13 +10,17 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles-bdgd.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <script src="script.js" defer></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+  <script src="bdgd-map.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
   <header class="topbar">
     <a class="brand" href="#inicio" aria-label="Energia em percurso, início"><span class="brand-mark">ϟ</span><span>ENERGIA <i>EM PERCURSO</i></span></a>
-    <nav aria-label="Navegação principal"><a href="#jornada">A jornada</a><a href="#no-campus">No campus</a><a href="#agir">Faça parte</a></nav>
+    <nav aria-label="Navegação principal"><a href="#jornada">A jornada</a><a href="#rede-ufrb">Rede na UFRB</a><a href="#no-campus">No campus</a><a href="#agir">Faça parte</a></nav>
     <a class="top-cta" href="#jornada">Explorar <span>↗</span></a>
   </header>
 
@@ -88,6 +92,18 @@
           <article data-story-step><p data-category>NOSSA HISTÓRIA CONTINUA AQUI</p><p data-index>06</p><h3 data-title>Na UFRB, a energia<br>também nasce aqui.</h3><p data-text>Os circuitos urbanos de distribuição levam energia pelas ruas de Cruz das Almas até o campus da UFRB. Ali, a rede elétrica atende aulas, pesquisas e serviços, junto com a geração da usina solar fotovoltaica integrada ao campus.</p><p data-fact>Com a usina solar, parte da energia consumida localmente é gerada no próprio campus.</p><p data-tag>UFRB · GERAÇÃO LOCAL</p><p data-symbol>⌂</p></article>
         </div>
       </div>
+    </section>
+
+    <section class="bdgd-section section-pad" id="rede-ufrb" aria-labelledby="bdgd-title">
+      <div class="section-heading"><div><p class="eyebrow">DADOS GEOGRÁFICOS · ANEEL</p><h2 id="bdgd-title">A rede perto<br>da <em>UFRB.</em></h2></div><p>Explore os segmentos de média tensão, transformadores e subestações da Neoenergia Coelba na região do campus de Cruz das Almas.</p></div>
+      <div class="bdgd-toolbar" aria-label="Camadas do mapa">
+        <label><input type="checkbox" data-bdgd-layer="SSDMT" checked> Rede de média tensão</label>
+        <label><input type="checkbox" data-bdgd-layer="UNTRD" checked> Transformadores</label>
+        <label><input type="checkbox" data-bdgd-layer="SUB" checked> Subestações</label>
+      </div>
+      <div id="bdgd-map" role="region" aria-label="Mapa da rede elétrica próxima ao campus da UFRB"></div>
+      <p class="bdgd-status" id="bdgd-status" role="status">Conectando ao serviço de dados…</p>
+      <p class="bdgd-attribution">Fonte: BDGD da ANEEL · Neoenergia Coelba. A posição e os atributos refletem a data-base do arquivo importado.</p>
     </section>
 
     <section class="campus-section" id="no-campus">

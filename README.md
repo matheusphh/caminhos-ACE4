@@ -5,13 +5,32 @@ Site interativo de um projeto de extensão que apresenta a jornada da energia el
 
 ## Como abrir
 
-O site é estático e não precisa de instalação ou dependências. Abra `index.html` em um navegador. Para servir os arquivos localmente durante a edição, também é possível executar `python3 -m http.server 8000` na pasta do projeto e acessar `http://localhost:8000`.
+O conteúdo editorial pode ser aberto diretamente em `index.html`. Para usar o mapa, é necessário iniciar também a API local e servir a página por HTTP; siga as instruções da seção abaixo. O restante do site continua disponível sem o serviço BDGD.
+
+## Mapa da rede elétrica próxima à UFRB
+
+A seção “A rede perto da UFRB” consulta uma API própria alimentada pela BDGD da Neoenergia Coelba, em um banco PostgreSQL/PostGIS. O mapa mostra os segmentos de média tensão (`SSDMT`), as unidades transformadoras de distribuição (`UNTRD`) e as áreas de subestação (`SUB`) no entorno do campus de Cruz das Almas. O processo de importação recorta essas camadas para a região do campus e não importa camadas de unidades consumidoras.
+
+O mapa e a API estão preparados no repositório, mas só exibem dados depois de importar a geodatabase e iniciar o serviço. A base cartográfica da distribuidora é disponibilizada pela ANEEL em arquivo `.gdb`; por seu tamanho, ela não é armazenada neste repositório. A API deve ser hospedada em um serviço com Docker e PostGIS. O GitHub Pages serve apenas a página estática, portanto a publicação pública do mapa exige hospedar a API separadamente e definir `window.BDGD_API_URL` antes de `bdgd-map.js` (por exemplo, com `<script>window.BDGD_API_URL = 'https://api.exemplo.br';</script>` no `index.html`) e restringir `CORS_ORIGINS` ao domínio do site.
+
+### Preparar os dados e iniciar localmente
+
+1. Baixe a geodatabase da Neoenergia Coelba na [página oficial da BDGD da ANEEL](https://dadosabertos.aneel.gov.br/dataset/base-de-dados-geografica-da-distribuidora-bdgd) e extraia a pasta `.gdb` como `dados/BDGD.gdb`.
+2. Copie `.env.example` para `.env` e ajuste os valores, especialmente a senha e a data-base correspondente ao arquivo baixado.
+3. Execute `docker compose up -d --build db api` para iniciar PostGIS e a API em `http://localhost:8000`.
+4. Execute `docker compose --profile import run --rm importer` para importar as camadas do recorte ao redor do campus.
+5. Sirva o site por HTTP local, por exemplo com `python3 -m http.server 8001`, e acesse `http://localhost:8001`. A página consulta a API em `http://localhost:8000`.
+
+O endpoint `GET /api/features?bbox=oeste,sul,leste,norte&layers=SSDMT,UNTRD,SUB` devolve GeoJSON da área visível. A API limita a consulta a um grau por eixo e 5.000 feições por camada. Também disponibiliza `GET /api/health`. Para produção, use HTTPS e credenciais próprias. O valor inicial `http://localhost:8000` é apenas para desenvolvimento local.
 
 ## Estrutura do repositório
 
 - `index.html` — estrutura da página, conteúdo textual, navegação e ilustração SVG.
 - `styles.css` — identidade visual, animações e layouts responsivos para computador, tablet e smartphone.
 - `script.js` — navegação interativa pelas seis etapas da jornada.
+- `bdgd-map.js` e `styles-bdgd.css` — mapa Leaflet e controles das camadas BDGD.
+- `backend/` — API FastAPI, imagem Docker, inicialização PostGIS e importador de camadas.
+- `docker-compose.yml` — serviços locais de PostGIS, API e importação.
 - `AGENT.MD` — orientações para contribuições e manutenção da documentação.
 
 ## Conteúdo da jornada
@@ -36,6 +55,8 @@ Os rótulos dos pontos da jornada também estão no HTML, dentro de `.route-list
 Toda alteração no código deve ser registrada neste README na mesma contribuição. Atualize a seção afetada e acrescente uma entrada em **Histórico de alterações**, descrevendo o que mudou e quais arquivos foram afetados. Consulte `AGENT.MD` para as orientações completas.
 
 ## Histórico de alterações
+
+- **2026-11-18** — Inclusão do mapa geográfico da rede da Coelba no entorno da UFRB, API FastAPI/PostGIS e rotina de importação recortada das camadas SSDMT, UNTRD e SUB. A integração depende de obter a geodatabase da ANEEL e hospedar a API separadamente do GitHub Pages. Arquivos: `index.html`, `bdgd-map.js`, `styles-bdgd.css`, `backend/`, `docker-compose.yml`, `.env.example`, `.gitignore`, `dados/.gitkeep`, `README.md`.
 
 - **2026-11-15** — Criação do site interativo, da narrativa da jornada elétrica, da ilustração animada, dos controles de navegação e dos estilos responsivos para smartphone. Arquivos: `index.html`, `styles.css`, `script.js`.
 - **2026-11-15** — Documentação inicial do repositório e regra para registrar futuras mudanças de código neste README. Arquivos: `README.md`, `AGENT.MD`.

@@ -1,0 +1,4 @@
+.env
+dados/*
+!dados/.gitkeep
+__pycache__/
