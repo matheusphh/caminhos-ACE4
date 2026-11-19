@@ -17,6 +17,7 @@
 
   const layers = {
     SSDMT: L.geoJSON(null, { style: { color: '#d18a38', weight: 3 } }),
+    SSDBT: L.geoJSON(null, { style: { color: '#627fba', weight: 2 } }),
     UNTRD: L.geoJSON(null, { pointToLayer: (_, latlng) => L.circleMarker(latlng, { radius: 5, color: '#315943', fillColor: '#e9bd58', fillOpacity: 0.95, weight: 2 }) }),
     SUB: L.geoJSON(null, { style: { color: '#315943', fillColor: '#78917a', fillOpacity: 0.35, weight: 2 } })
   };

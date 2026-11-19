@@ -7,7 +7,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://bdgd:bdgd@localhost:5432/bdgd")
 REFERENCE_DATE = os.getenv("BDGD_REFERENCE_DATE", "não informada")
-ALLOWED_LAYERS = {"SSDMT": "bdgd_ssdmt", "UNTRD": "bdgd_untrd", "SUB": "bdgd_sub"}
+ALLOWED_LAYERS = {"SSDMT": "bdgd_ssdmt", "SSDBT": "bdgd_ssdbt", "UNTRD": "bdgd_untrd", "SUB": "bdgd_sub"}
 
 app = FastAPI(title="API BDGD — UFRB", version="1.0.0")
 origins = [origin.strip() for origin in os.getenv("CORS_ORIGINS", "*").split(",") if origin.strip()]
@@ -32,7 +32,7 @@ def health():
 @app.get("/api/features")
 def features(
     bbox: Annotated[str, Query(description="Oeste,Sul,Leste,Norte em EPSG:4326")],
-    layers: str = "SSDMT,UNTRD,SUB",
+    layers: str = "SSDMT,SSDBT,UNTRD,SUB",
 ):
     try:
         west, south, east, north = (float(value) for value in bbox.split(","))

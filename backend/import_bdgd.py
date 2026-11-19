@@ -14,7 +14,7 @@ PG_DSN = f"PG:host={DB_HOST} port={DB_PORT} dbname={DB_NAME} user={DB_USER} pass
 
 # Retângulo de interesse: campus da UFRB e rede imediatamente próxima, Cruz das Almas/BA.
 BBOX = ("-39.13", "-12.70", "-39.06", "-12.63")
-LAYERS = {"SSDMT": "bdgd_ssdmt", "UNTRD": "bdgd_untrd", "SUB": "bdgd_sub"}
+LAYERS = {"SSDMT": "bdgd_ssdmt", "SSDBT": "bdgd_ssdbt", "UNTRD": "bdgd_untrd", "SUB": "bdgd_sub"}
 
 
 def main():
