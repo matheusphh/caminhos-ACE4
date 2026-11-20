@@ -36,6 +36,7 @@ O endpoint `GET /api/features?bbox=oeste,sul,leste,norte&layers=SSDMT,SSDBT,UNTR
 - `route-maps.js` e `styles-routes.css` — três mapas interativos esquemáticos das rotas até a UFRB.
 - `route-presentation.js` e `styles-presentation.css` — apresentação interativa com escolha de rota, navegação por etapas e fotos locais organizadas em `src/rota_1/`, `src/rota_2/` e `src/rota_3/`.
 - `styles-accessibility.css` — ajustes de tamanho de texto, contraste, área de toque e foco visível por teclado.
+- `styles-spacing.css` — espaçamento vertical responsivo entre as seções da página.
 - `backend/` — API FastAPI, imagem Docker, inicialização PostGIS e importador de camadas.
 - `docker-compose.yml` — serviços locais de PostGIS, API e importação.
 - `AGENT.MD` — orientações para contribuições e manutenção da documentação.
@@ -66,10 +67,13 @@ Toda alteração no código deve ser registrada neste README na mesma contribui�
 
 ## Histórico de alterações
 
+- **2026-11-20** — Redução dos intervalos verticais entre seções e ajustes correspondentes para telas pequenas. Arquivos: `index.html`, `styles-spacing.css`, `README.md`.
+
 - **2026-11-20** — Inclusão de contexto histórico para Pedra do Cavalo, Complexo de Paulo Afonso e Alto Sertão II, com fontes institucionais por ponto de geração. Arquivos: `index.html`, `route-presentation.js`, `styles-presentation.css`, `styles-accessibility.css`, `README.md`.
 
 - **2026-11-20** — Ampliação do texto dos slides com dados de fontes institucionais e links de referência por parada, mantendo a distinção entre contexto regional e trajeto elétrico comprovado. Arquivos: `route-presentation.js`, `index.html`, `styles-presentation.css`, `styles-accessibility.css`, `README.md`.
 - **2026-11-20** — Reposicionamento do botão de tela cheia acima dos controles de navegação no layout mobile. Arquivos: `styles-presentation.css`, `README.md`.
+- **2026-11-20** — Centralização do botão de saída da tela cheia no layout mobile. Arquivos: `styles-presentation.css`, `README.md`.
 
 - **2026-11-20** — Inclusão de tela cheia somente para o slide atual e animação de entrada para fotos e conteúdo de cada parada, respeitando movimento reduzido. Arquivos: `index.html`, `route-presentation.js`, `styles-presentation.css`, `README.md`.
 
