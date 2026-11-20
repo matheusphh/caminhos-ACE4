@@ -12,11 +12,13 @@
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="styles-bdgd.css">
   <link rel="stylesheet" href="styles-routes.css">
+  <link rel="stylesheet" href="styles-presentation.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <script src="script.js" defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
   <script src="bdgd-map.js" defer></script>
   <script src="route-maps.js" defer></script>
+  <script src="route-presentation.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
@@ -98,6 +100,19 @@
 
     <section class="energy-routes section-pad" id="rotas-energia" aria-labelledby="routes-title">
       <div class="section-heading"><div><p class="eyebrow">TRÊS CAMINHOS · UM DESTINO</p><h2 id="routes-title">Rotas da<br><em>energia.</em></h2></div><p>Explore os caminhos entre usinas, redes de transmissão e a UFRB. Arraste e aproxime os mapas; toque nos pontos para ver cada etapa.</p></div>
+      <section class="route-presentation" aria-labelledby="presentation-title">
+        <div class="presentation-heading"><div><p class="eyebrow">APRESENTAÇÃO INTERATIVA</p><h3 id="presentation-title">Escolha uma origem<br>e siga <em>o percurso.</em></h3></div><p>Em cada etapa, avance para conhecer os lugares e as estruturas que podem participar do caminho até o campus.</p></div>
+        <div class="presentation-choices" role="group" aria-label="Escolha uma rota de energia">
+          <button type="button" data-presentation-route="blue" aria-pressed="true"><span>ROTA 01</span>Pedra do Cavalo <b>→</b></button>
+          <button type="button" data-presentation-route="green" aria-pressed="false"><span>ROTA 02</span>Paulo Afonso <b>→</b></button>
+          <button type="button" data-presentation-route="yellow" aria-pressed="false"><span>ROTA 03</span>Energia eólica <b>→</b></button>
+        </div>
+        <article class="presentation-slide" aria-live="polite" aria-atomic="true">
+          <div class="presentation-photo"><img id="presentationImage" src="src/Pedra_do_cavalo.jpeg" alt="Barragem de Pedra do Cavalo"><span id="presentationPhotoLabel">GERAÇÃO · PEDRA DO CAVALO</span></div>
+          <div class="presentation-copy"><div class="presentation-progress"><span id="presentationRouteName">ROTA AZUL</span><span id="presentationCount">01 / 05</span></div><p class="presentation-kicker" id="presentationKind">USINA HIDRELÉTRICA</p><h4 id="presentationPlace">Pedra do Cavalo</h4><p id="presentationText">A usina hidrelétrica aproveita a água represada para movimentar turbinas e gerar eletricidade. Esta é uma das possibilidades de origem para contar a jornada até a UFRB.</p><p class="presentation-detail" id="presentationDetail">A partir da geração, a energia é conectada à rede elétrica. O caminho mostrado é esquemático e não identifica o fluxo físico de elétrons até o campus.</p><div class="presentation-controls"><button type="button" id="presentationPrev" aria-label="Lugar anterior" disabled>← Anterior</button><button type="button" id="presentationNext">Próximo lugar <span>→</span></button></div></div>
+        </article>
+        <p class="presentation-note">As rotas são possibilidades didáticas, com conexões esquemáticas. Não representam a trajetória exata da energia nem garantem a origem da eletricidade consumida pela UFRB.</p>
+      </section>
       <div class="route-maps-grid">
         <article class="route-map-card route-blue" aria-labelledby="route-blue-title">
           <header><span class="route-color-tag">ROTA 01</span><h3 id="route-blue-title">Rota Azul</h3><p>Pedra do Cavalo até o campus</p></header>

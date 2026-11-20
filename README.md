@@ -13,6 +13,8 @@ A seção “A rede perto da UFRB” consulta uma API própria alimentada pela B
 
 A seção “Rotas da energia” apresenta três mapas interativos: Rota Azul (Pedra do Cavalo–UFRB), Rota Verde (Paulo Afonso–UFRB) e Rota Amarela (complexos eólicos–Sapeaçu–UFRB). Os mapas permitem arrastar, aproximar e abrir os pontos. As linhas são esquemáticas e não afirmam o traçado das linhas de transmissão ou o caminho físico da energia no SIN; a localização indicada para a Rede CHESF e para os complexos eólicos é ilustrativa.
 
+Na mesma seção, a apresentação interativa permite escolher uma das três origens e avançar por lugares e estruturas até a UFRB. Ela mostra fotografias disponíveis dos pontos de geração e informações textuais para as conexões intermediárias e a chegada. O texto esclarece que as rotas são possibilidades educativas, não rastreamento do fornecimento real ao campus.
+
 O mapa e a API estão preparados no repositório, mas só exibem dados depois de importar a geodatabase e iniciar o serviço. A base cartográfica da distribuidora é disponibilizada pela ANEEL em arquivo `.gdb`; por seu tamanho, ela não é armazenada neste repositório. A API deve ser hospedada em um serviço com Docker e PostGIS. O GitHub Pages serve apenas a página estática, portanto a publicação pública do mapa exige hospedar a API separadamente e definir `window.BDGD_API_URL` antes de `bdgd-map.js` (por exemplo, com `<script>window.BDGD_API_URL = 'https://api.exemplo.br';</script>` no `index.html`) e restringir `CORS_ORIGINS` ao domínio do site.
 
 ### Preparar os dados e iniciar localmente
@@ -32,6 +34,7 @@ O endpoint `GET /api/features?bbox=oeste,sul,leste,norte&layers=SSDMT,SSDBT,UNTR
 - `script.js` — navegação interativa pelas seis etapas da jornada.
 - `bdgd-map.js` e `styles-bdgd.css` — mapa Leaflet e controles das camadas BDGD.
 - `route-maps.js` e `styles-routes.css` — três mapas interativos esquemáticos das rotas até a UFRB.
+- `route-presentation.js` e `styles-presentation.css` — apresentação interativa com escolha de rota, navegação por etapas e fotos locais.
 - `backend/` — API FastAPI, imagem Docker, inicialização PostGIS e importador de camadas.
 - `docker-compose.yml` — serviços locais de PostGIS, API e importação.
 - `AGENT.MD` — orientações para contribuições e manutenção da documentação.
@@ -49,6 +52,7 @@ Os rótulos dos pontos da jornada também estão no HTML, dentro de `.route-list
 ## Interações e acessibilidade
 
 - Selecione um ponto da lista, use os botões de anterior/próximo ou as setas do teclado para percorrer a história.
+- Na apresentação das rotas, escolha Pedra do Cavalo, Paulo Afonso ou energia eólica e avance pelas paradas com os botões anterior/próximo.
 - Em telas sensíveis ao toque, deslize sobre o cartão da etapa para avançar ou voltar.
 - O layout se ajusta a telas menores; as animações respeitam a preferência do sistema por movimento reduzido.
 - A página inclui estrutura semântica, rótulos de navegação e um link para pular diretamente ao conteúdo.
@@ -58,6 +62,8 @@ Os rótulos dos pontos da jornada também estão no HTML, dentro de `.route-list
 Toda alteração no código deve ser registrada neste README na mesma contribuição. Atualize a seção afetada e acrescente uma entrada em **Histórico de alterações**, descrevendo o que mudou e quais arquivos foram afetados. Consulte `AGENT.MD` para as orientações completas.
 
 ## Histórico de alterações
+
+- **2026-11-20** — Apresentação interativa das rotas com seleção de origem, navegação por paradas, imagens locais e contexto dos lugares até a UFRB. Arquivos: `index.html`, `route-presentation.js`, `styles-presentation.css`, `README.md`.
 
 - **2026-11-19** — Inclusão de três mapas interativos esquemáticos (Rotas Azul, Verde e Amarela), com pontos clicáveis, linhas coloridas e aviso sobre a natureza ilustrativa dos trajetos. Arquivos: `index.html`, `route-maps.js`, `styles-routes.css`, `README.md`.
 
