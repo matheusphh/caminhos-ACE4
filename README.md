@@ -15,10 +15,10 @@ O mapa e a API estão preparados no repositório, mas só exibem dados depois de
 
 ### Preparar os dados e iniciar localmente
 
-1. Baixe a geodatabase da Neoenergia Coelba na [página oficial da BDGD da ANEEL](https://dadosabertos.aneel.gov.br/dataset/base-de-dados-geografica-da-distribuidora-bdgd) e extraia a pasta `.gdb` como `dados/BDGD.gdb`.
+1. Baixe a geodatabase da Neoenergia Coelba na [página oficial da BDGD da ANEEL](https://dadosabertos.aneel.gov.br/dataset/base-de-dados-geografica-da-distribuidora-bdgd) e extraia a pasta `.gdb` em `dados/`. O compose está configurado para a pasta `dados/BDGB.gdb` que está neste workspace. Se o download tiver outro nome, ajuste `BDGD_GDB` no serviço `importer` de `docker-compose.yml` para o caminho correspondente dentro de `/data`.
 2. Copie `.env.example` para `.env` e ajuste os valores, especialmente a senha e a data-base correspondente ao arquivo baixado.
 3. Execute `docker compose up -d --build db api` para iniciar PostGIS e a API em `http://localhost:8000`.
-4. Execute `docker compose --profile import run --rm importer` para importar as camadas do recorte ao redor do campus.
+4. Execute `docker compose --profile import build importer` para atualizar a imagem do importador e, em seguida, `docker compose --profile import run --rm importer` para importar as camadas do recorte ao redor do campus. O importador aceita os formatos de listagem de camadas das versões atuais e antigas do GDAL; quando `UNTRD` não existir, usa `UNTRMT` como origem para os transformadores de média tensão. O script `./run.sh` executa a inicialização, reconstrói o importador, importa os dados e inicia o servidor HTTP nesta ordem.
 5. Sirva o site por HTTP local, por exemplo com `python3 -m http.server 8001`, e acesse `http://localhost:8001`. A página consulta a API em `http://localhost:8000`.
 
 O endpoint `GET /api/features?bbox=oeste,sul,leste,norte&layers=SSDMT,SSDBT,UNTRD,SUB` devolve GeoJSON da área visível. A API limita a consulta a um grau por eixo e 5.000 feições por camada. Também disponibiliza `GET /api/health`. Para produção, use HTTPS e credenciais próprias. O valor inicial `http://localhost:8000` é apenas para desenvolvimento local.
@@ -55,6 +55,10 @@ Os rótulos dos pontos da jornada também estão no HTML, dentro de `.route-list
 Toda alteração no código deve ser registrada neste README na mesma contribuição. Atualize a seção afetada e acrescente uma entrada em **Histórico de alterações**, descrevendo o que mudou e quais arquivos foram afetados. Consulte `AGENT.MD` para as orientações completas.
 
 ## Histórico de alterações
+
+- **2026-11-19** — Alinhamento do caminho da geodatabase com o arquivo disponível (`dados/BDGB.gdb`) e correção da chamada do serviço importador no `run.sh`. Arquivos: `docker-compose.yml`, `run.sh`, `README.md`.
+- **2026-11-19** — Compatibilidade do importador com formatos de listagem do GDAL e com a camada `UNTRMT` usada em algumas versões da BDGD. Arquivos: `backend/import_bdgd.py`, `README.md`.
+- **2026-11-19** — Reconstrução explícita da imagem do importador no script local para aplicar atualizações do código antes da importação. Arquivos: `run.sh`, `README.md`.
 
 - **2026-11-18** — Inclusão do mapa geográfico da rede da Coelba no entorno da UFRB, API FastAPI/PostGIS e rotina de importação recortada das camadas SSDMT, SSDBT, UNTRD e SUB. A integração depende de obter a geodatabase da ANEEL e hospedar a API separadamente do GitHub Pages. Arquivos: `index.html`, `bdgd-map.js`, `styles-bdgd.css`, `backend/`, `docker-compose.yml`, `.env.example`, `.gitignore`, `dados/.gitkeep`, `README.md`.
 

@@ -35,7 +35,7 @@ services:
     profiles: ["import"]
     entrypoint: ["python", "import_bdgd.py"]
     environment:
-      BDGD_GDB: /data/BDGD.gdb
+      BDGD_GDB: /data/BDGB.gdb
       POSTGRES_DB: ${POSTGRES_DB:-bdgd}
       POSTGRES_USER: ${POSTGRES_USER:-bdgd}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-bdgd}

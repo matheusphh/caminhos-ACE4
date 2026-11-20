@@ -21,18 +21,25 @@ def main():
     if not os.path.exists(GDB_PATH):
         sys.exit(f"Geodatabase não encontrada: {GDB_PATH} (defina BDGD_GDB)")
     output = subprocess.check_output(["ogrinfo", "-ro", "-so", GDB_PATH], text=True, stderr=subprocess.STDOUT)
-    available = set(re.findall(r"^\s*\d+:\s+([^\s(]+)", output, flags=re.MULTILINE))
+    # GDAL versions format this listing either as "1: SSDMT (...)" or
+    # "Layer: SSDMT (...)". Accept both forms.
+    available = set(re.findall(r"^\s*(?:\d+:\s+|Layer:\s*)([^\s(]+)", output, flags=re.MULTILINE))
     for layer, table in LAYERS.items():
-        if layer not in available:
-            print(f"Camada {layer} ausente na origem; pulando.")
+        source_layer = layer
+        if layer == "UNTRD" and source_layer not in available:
+            # Some BDGD editions split the distribution transformer layer by
+            # voltage and use UNTRMT for the medium-voltage transformer set.
+            source_layer = "UNTRMT"
+        if source_layer not in available:
+            print(f"Camada {layer} (origem: {source_layer}) ausente na origem; pulando.")
             continue
         command = [
-            "ogr2ogr", "-f", "PostgreSQL", PG_DSN, GDB_PATH, layer,
+            "ogr2ogr", "-f", "PostgreSQL", PG_DSN, GDB_PATH, source_layer,
             "-nln", table, "-lco", "GEOMETRY_NAME=geom", "-lco", "SPATIAL_INDEX=GIST", "-t_srs", "EPSG:4326",
             "-spat", *BBOX, "-spat_srs", "EPSG:4326", "-nlt", "PROMOTE_TO_MULTI",
             "-overwrite", "-progress",
         ]
-        print(f"Importando {layer} para {table} no recorte de Cruz das Almas…", flush=True)
+        print(f"Importando {source_layer} para {table} no recorte de Cruz das Almas…", flush=True)
         subprocess.run(command, check=True)
 
 
