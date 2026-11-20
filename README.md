@@ -34,7 +34,8 @@ O endpoint `GET /api/features?bbox=oeste,sul,leste,norte&layers=SSDMT,SSDBT,UNTR
 - `script.js` — navegação interativa pelas seis etapas da jornada.
 - `bdgd-map.js` e `styles-bdgd.css` — mapa Leaflet e controles das camadas BDGD.
 - `route-maps.js` e `styles-routes.css` — três mapas interativos esquemáticos das rotas até a UFRB.
-- `route-presentation.js` e `styles-presentation.css` — apresentação interativa com escolha de rota, navegação por etapas e fotos locais.
+- `route-presentation.js` e `styles-presentation.css` — apresentação interativa com escolha de rota, navegação por etapas e fotos locais organizadas em `src/rota_1/`, `src/rota_2/` e `src/rota_3/`.
+- `styles-accessibility.css` — ajustes de tamanho de texto, contraste, área de toque e foco visível por teclado.
 - `backend/` — API FastAPI, imagem Docker, inicialização PostGIS e importador de camadas.
 - `docker-compose.yml` — serviços locais de PostGIS, API e importação.
 - `AGENT.MD` — orientações para contribuições e manutenção da documentação.
@@ -55,6 +56,7 @@ Os rótulos dos pontos da jornada também estão no HTML, dentro de `.route-list
 - Na apresentação das rotas, escolha Pedra do Cavalo, Paulo Afonso ou energia eólica e avance pelas paradas com os botões anterior/próximo.
 - Em telas sensíveis ao toque, deslize sobre o cartão da etapa para avançar ou voltar.
 - O layout se ajusta a telas menores; as animações respeitam a preferência do sistema por movimento reduzido.
+- Os estilos de acessibilidade ampliam textos auxiliares, preservam alvos de toque confortáveis e destacam o foco de teclado.
 - A página inclui estrutura semântica, rótulos de navegação e um link para pular diretamente ao conteúdo.
 
 ## Documentação das mudanças
@@ -62,6 +64,10 @@ Os rótulos dos pontos da jornada também estão no HTML, dentro de `.route-list
 Toda alteração no código deve ser registrada neste README na mesma contribuição. Atualize a seção afetada e acrescente uma entrada em **Histórico de alterações**, descrevendo o que mudou e quais arquivos foram afetados. Consulte `AGENT.MD` para as orientações completas.
 
 ## Histórico de alterações
+
+- **2026-11-20** — Atualização dos caminhos das fotos para usar a organização por pastas de rota em `src/`. Arquivos: `index.html`, `route-presentation.js`, `README.md`.
+
+- **2026-11-20** — Ampliação de textos pequenos, melhora de contraste em rótulos e inclusão de foco visível e áreas de toque maiores nos controles. Arquivos: `index.html`, `styles-accessibility.css`, `README.md`.
 
 - **2026-11-20** — Inclusão das novas fotos de Cruz das Almas, da subestação de Sapeaçu e da entrada da UFRB na apresentação das rotas. Arquivos: `route-presentation.js`, `README.md`.
 
