@@ -34,13 +34,27 @@
     'Complexos eólicos da Bahia': ['Boletim de Energia Eólica · EPE', 'https://www.epe.gov.br/pt/imprensa/noticias/epe-publica-boletim-trimestral-de-energia-eolica'],
     'Subestação Sapeaçu': ['Regulação da distribuição · ANEEL', 'https://www.gov.br/aneel/pt-br/assuntos/distribuicao/regulacao']
   };
+  const generationHistory = {
+    blue: {
+      text: 'A barragem começou a operar em 1985, inicialmente para usos como abastecimento de água e controle de cheias no baixo Paraguaçu. A geração hidrelétrica começou em 2005, acrescentando uma nova função à infraestrutura já existente.',
+      source: ['Plano da Bacia do Paraguaçu · INEMA', 'https://www.ba.gov.br/inema/sites/site-inema/files/2025-09/NT5%20%E2%80%93%20DISPONIBILIDADE%20H%C3%8DDRICA%20SUPERFICIAL_PARAGUA%C3%87U.pdf']
+    },
+    green: {
+      text: 'A CHESF foi criada em 1945 e iniciou suas operações em 1948. Paulo Afonso I, concluída em 1955, marcou o começo do complexo que cresceu em etapas para ampliar a oferta de energia no Nordeste.',
+      source: ['Histórico institucional da CHESF · Formulário de Referência 2025', 'https://www.chesf.com.br/relainvest/Documents/Pages/CVM/FR/FRe%20Chesf%20v3%20%281%29.pdf']
+    },
+    yellow: {
+      text: 'Alto Sertão II surgiu de projetos contratados nos leilões de energia de reserva de 2010 e de energia nova de 2011. O complexo reúne 15 parques e 230 aerogeradores; sua implantação integra a expansão da geração eólica no interior baiano.',
+      source: ['Complexo Alto Sertão II · Secretaria de Desenvolvimento Econômico da Bahia', 'https://www.ba.gov.br/sde/2020/08/19/nordeste-da-bahia-tera-complexo-eolico-com-r-13-bilhao-em-investimentos']
+    }
+  };
   const buttons = [...document.querySelectorAll('[data-presentation-route]')];
   const presentation = document.querySelector('.presentation-slide');
   const fullscreenButton = document.querySelector('#presentationFullscreen');
   const slide = document.querySelector('.presentation-slide');
   const image = document.querySelector('#presentationImage');
   let routeId = 'blue'; let index = 0;
-  const fields = { route: document.querySelector('#presentationRouteName'), count: document.querySelector('#presentationCount'), kind: document.querySelector('#presentationKind'), place: document.querySelector('#presentationPlace'), text: document.querySelector('#presentationText'), detail: document.querySelector('#presentationDetail'), source: document.querySelector('#presentationSource'), label: document.querySelector('#presentationPhotoLabel'), prev: document.querySelector('#presentationPrev'), next: document.querySelector('#presentationNext') };
+  const fields = { route: document.querySelector('#presentationRouteName'), count: document.querySelector('#presentationCount'), kind: document.querySelector('#presentationKind'), place: document.querySelector('#presentationPlace'), text: document.querySelector('#presentationText'), detail: document.querySelector('#presentationDetail'), source: document.querySelector('#presentationSource'), history: document.querySelector('#presentationHistory'), historyText: document.querySelector('#presentationHistoryText'), historySource: document.querySelector('#presentationHistorySource'), label: document.querySelector('#presentationPhotoLabel'), prev: document.querySelector('#presentationPrev'), next: document.querySelector('#presentationNext') };
   function render() {
     const route = routes[routeId]; const stop = route.places[index];
     fields.route.textContent = route.name;
@@ -49,6 +63,13 @@
     fields.text.textContent = stop.text; fields.detail.textContent = stop.detail; fields.label.textContent = stop.label;
     const [sourceTitle, sourceUrl] = sources[stop.place] || sources['Rede interligada'];
     fields.source.href = sourceUrl; fields.source.textContent = `Fonte: ${sourceTitle} ↗`;
+    const history = index === 0 ? generationHistory[routeId] : null;
+    fields.history.hidden = !history;
+    if (history) {
+      fields.historyText.textContent = history.text;
+      fields.historySource.href = history.source[1];
+      fields.historySource.textContent = `História: ${history.source[0]} ↗`;
+    }
     if (stop.image) { image.src = stop.image; image.alt = stop.alt; image.hidden = false; }
     else { image.hidden = true; image.alt = ''; }
     fields.prev.disabled = index === 0;
