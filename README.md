@@ -67,6 +67,7 @@ Toda alteração no código deve ser registrada neste README na mesma contribui�
 ## Histórico de alterações
 
 - **2026-11-20** — Ampliação do texto dos slides com dados de fontes institucionais e links de referência por parada, mantendo a distinção entre contexto regional e trajeto elétrico comprovado. Arquivos: `route-presentation.js`, `index.html`, `styles-presentation.css`, `styles-accessibility.css`, `README.md`.
+- **2026-11-20** — Reposicionamento do botão de tela cheia acima dos controles de navegação no layout mobile. Arquivos: `styles-presentation.css`, `README.md`.
 
 - **2026-11-20** — Inclusão de tela cheia somente para o slide atual e animação de entrada para fotos e conteúdo de cada parada, respeitando movimento reduzido. Arquivos: `index.html`, `route-presentation.js`, `styles-presentation.css`, `README.md`.
 
