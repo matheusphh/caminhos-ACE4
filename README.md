@@ -13,7 +13,7 @@ A seção “A rede perto da UFRB” consulta uma API própria alimentada pela B
 
 A seção “Rotas da energia” apresenta três mapas interativos: Rota Azul (Pedra do Cavalo–UFRB), Rota Verde (Paulo Afonso–UFRB) e Rota Amarela (complexos eólicos–Sapeaçu–UFRB). Os mapas permitem arrastar, aproximar e abrir os pontos. As linhas são esquemáticas e não afirmam o traçado das linhas de transmissão ou o caminho físico da energia no SIN; a localização indicada para a Rede CHESF e para os complexos eólicos é ilustrativa.
 
-Na mesma seção, a apresentação interativa permite escolher uma das três origens e avançar por lugares e estruturas até a UFRB. Ela mostra fotografias dos pontos de geração, das cidades, de uma subestação e do campus, com informações para cada parada. O texto esclarece que as rotas são possibilidades educativas, não rastreamento do fornecimento real ao campus.
+Na mesma seção, a apresentação interativa permite escolher uma das três origens e avançar por lugares e estruturas até a UFRB. Ela mostra fotografias dos pontos de geração, das cidades, de uma subestação e do campus, com informações ampliadas e uma fonte de referência em cada parada. Os conteúdos usam informações do [ONS sobre o SIN](https://www.ons.org.br/paginas/sobre-o-sin/o-que-e-o-sin), do [INEMA sobre a bacia do Paraguaçu](https://www.ba.gov.br/inema/sites/site-inema/files/2025-09/NT5%20%E2%80%93%20DISPONIBILIDADE%20H%C3%8DDRICA%20SUPERFICIAL_PARAGUA%C3%87U.pdf), da [Eletrobras sobre Paulo Afonso](https://www.eletrobras.com/pt/Paginas/Usinas.aspx), da [ANEEL sobre distribuição](https://www.gov.br/aneel/pt-br/assuntos/distribuicao/regulacao), da [EPE sobre energia eólica](https://www.epe.gov.br/pt/imprensa/noticias/epe-publica-boletim-trimestral-de-energia-eolica) e da [UFRB sobre a usina solar do campus](https://ufrb.edu.br/portal1/noticias/7579-nota-da-ufrb-sobre-o-desligamento-programado-de-energia-no-campus-cruz-das-almas-na-sexta-feira-4). O botão “Ver slide em tela cheia” expande somente a etapa atual, sem colocar a página inteira em tela cheia; Esc permite sair. A entrada de cada etapa é animada. O texto esclarece que as rotas são possibilidades educativas, não rastreamento do fornecimento real ao campus.
 
 O mapa e a API estão preparados no repositório, mas só exibem dados depois de importar a geodatabase e iniciar o serviço. A base cartográfica da distribuidora é disponibilizada pela ANEEL em arquivo `.gdb`; por seu tamanho, ela não é armazenada neste repositório. A API deve ser hospedada em um serviço com Docker e PostGIS. O GitHub Pages serve apenas a página estática, portanto a publicação pública do mapa exige hospedar a API separadamente e definir `window.BDGD_API_URL` antes de `bdgd-map.js` (por exemplo, com `<script>window.BDGD_API_URL = 'https://api.exemplo.br';</script>` no `index.html`) e restringir `CORS_ORIGINS` ao domínio do site.
 
@@ -54,6 +54,7 @@ Os rótulos dos pontos da jornada também estão no HTML, dentro de `.route-list
 
 - Selecione um ponto da lista, use os botões de anterior/próximo ou as setas do teclado para percorrer a história.
 - Na apresentação das rotas, escolha Pedra do Cavalo, Paulo Afonso ou energia eólica e avance pelas paradas com os botões anterior/próximo.
+- O slide atual pode ser expandido em tela cheia; use Esc ou o botão de saída para voltar à apresentação.
 - Em telas sensíveis ao toque, deslize sobre o cartão da etapa para avançar ou voltar.
 - O layout se ajusta a telas menores; as animações respeitam a preferência do sistema por movimento reduzido.
 - Os estilos de acessibilidade ampliam textos auxiliares, preservam alvos de toque confortáveis e destacam o foco de teclado.
@@ -64,6 +65,10 @@ Os rótulos dos pontos da jornada também estão no HTML, dentro de `.route-list
 Toda alteração no código deve ser registrada neste README na mesma contribuição. Atualize a seção afetada e acrescente uma entrada em **Histórico de alterações**, descrevendo o que mudou e quais arquivos foram afetados. Consulte `AGENT.MD` para as orientações completas.
 
 ## Histórico de alterações
+
+- **2026-11-20** — Ampliação do texto dos slides com dados de fontes institucionais e links de referência por parada, mantendo a distinção entre contexto regional e trajeto elétrico comprovado. Arquivos: `route-presentation.js`, `index.html`, `styles-presentation.css`, `styles-accessibility.css`, `README.md`.
+
+- **2026-11-20** — Inclusão de tela cheia somente para o slide atual e animação de entrada para fotos e conteúdo de cada parada, respeitando movimento reduzido. Arquivos: `index.html`, `route-presentation.js`, `styles-presentation.css`, `README.md`.
 
 - **2026-11-20** — Atualização dos caminhos das fotos para usar a organização por pastas de rota em `src/`. Arquivos: `index.html`, `route-presentation.js`, `README.md`.
 

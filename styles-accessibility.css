@@ -27,6 +27,7 @@ body{font-size:16px;line-height:1.6}
 .presentation-copy .presentation-detail{font-size:12px!important}
 .presentation-controls button{font-size:13px}
 .presentation-note{font-size:10px}
+.presentation-source{font-size:12px}
 footer{line-height:1.6}
 :where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:3px solid #b06c2f;outline-offset:3px;border-radius:3px}
 .skip-link:focus-visible{top:12px}
