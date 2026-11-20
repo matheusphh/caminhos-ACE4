@@ -3,14 +3,11 @@ import os
 import re
 import subprocess
 import sys
+from psycopg import connect
+from psycopg.conninfo import make_conninfo
 
 GDB_PATH = os.getenv("BDGD_GDB", "/data/BDGD.gdb")
-DB_NAME = os.getenv("POSTGRES_DB", "bdgd")
-DB_USER = os.getenv("POSTGRES_USER", "bdgd")
-DB_PASSWORD = os.getenv("POSTGRES_PASSWORD", "bdgd")
-DB_HOST = os.getenv("DB_HOST", "db")
-DB_PORT = os.getenv("DB_PORT", "5432")
-PG_DSN = f"PG:host={DB_HOST} port={DB_PORT} dbname={DB_NAME} user={DB_USER} password={DB_PASSWORD}"
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 # Retângulo de interesse: campus da UFRB e rede imediatamente próxima, Cruz das Almas/BA.
 BBOX = ("-39.13", "-12.70", "-39.06", "-12.63")
@@ -18,8 +15,17 @@ LAYERS = {"SSDMT": "bdgd_ssdmt", "SSDBT": "bdgd_ssdbt", "UNTRD": "bdgd_untrd", "
 
 
 def main():
+    if not DATABASE_URL:
+        sys.exit("DATABASE_URL não foi configurada para o importador")
     if not os.path.exists(GDB_PATH):
         sys.exit(f"Geodatabase não encontrada: {GDB_PATH} (defina BDGD_GDB)")
+    connection_options = "-c search_path=bdgd,public,extensions"
+    pg_dsn = "PG:" + make_conninfo(DATABASE_URL, options=connection_options)
+    with connect(DATABASE_URL, options=connection_options) as connection:
+        connection.execute("CREATE SCHEMA IF NOT EXISTS bdgd")
+        for table in LAYERS.values():
+            connection.execute(f"ALTER TABLE IF EXISTS public.{table} SET SCHEMA bdgd")
+
     output = subprocess.check_output(["ogrinfo", "-ro", "-so", GDB_PATH], text=True, stderr=subprocess.STDOUT)
     # GDAL versions format this listing either as "1: SSDMT (...)" or
     # "Layer: SSDMT (...)". Accept both forms.
@@ -34,8 +40,8 @@ def main():
             print(f"Camada {layer} (origem: {source_layer}) ausente na origem; pulando.")
             continue
         command = [
-            "ogr2ogr", "-f", "PostgreSQL", PG_DSN, GDB_PATH, source_layer,
-            "-nln", table, "-lco", "GEOMETRY_NAME=geom", "-lco", "SPATIAL_INDEX=GIST", "-t_srs", "EPSG:4326",
+            "ogr2ogr", "-f", "PostgreSQL", pg_dsn, GDB_PATH, source_layer,
+            "-nln", f"bdgd.{table}", "-lco", "GEOMETRY_NAME=geom", "-lco", "SPATIAL_INDEX=GIST", "-t_srs", "EPSG:4326",
             "-spat", *BBOX, "-spat_srs", "EPSG:4326", "-nlt", "PROMOTE_TO_MULTI",
             "-overwrite", "-progress",
         ]

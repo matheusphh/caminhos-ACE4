@@ -7,7 +7,19 @@ from fastapi.middleware.cors import CORSMiddleware
 
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://bdgd:bdgd@localhost:5432/bdgd")
 REFERENCE_DATE = os.getenv("BDGD_REFERENCE_DATE", "não informada")
-ALLOWED_LAYERS = {"SSDMT": "bdgd_ssdmt", "SSDBT": "bdgd_ssdbt", "UNTRD": "bdgd_untrd", "SUB": "bdgd_sub"}
+ALLOWED_LAYERS = {
+    "SSDMT": "bdgd.bdgd_ssdmt",
+    "SSDBT": "bdgd.bdgd_ssdbt",
+    "UNTRD": "bdgd.bdgd_untrd",
+    "SUB": "bdgd.bdgd_sub",
+}
+
+
+def connect_database():
+    return psycopg.connect(
+        DATABASE_URL,
+        options="-c search_path=bdgd,public,extensions",
+    )
 
 app = FastAPI(title="API BDGD — UFRB", version="1.0.0")
 origins = [origin.strip() for origin in os.getenv("CORS_ORIGINS", "*").split(",") if origin.strip()]
@@ -22,7 +34,7 @@ app.add_middleware(
 @app.get("/api/health")
 def health():
     try:
-        with psycopg.connect(DATABASE_URL) as connection:
+        with connect_database() as connection:
             connection.execute("SELECT 1")
     except psycopg.Error as error:
         raise HTTPException(status_code=503, detail="Banco BDGD indisponível") from error
@@ -51,7 +63,7 @@ def features(
     result = {name: {"type": "FeatureCollection", "features": []} for name in ALLOWED_LAYERS}
     total = 0
     try:
-        with psycopg.connect(DATABASE_URL) as connection:
+        with connect_database() as connection:
             for name in requested:
                 table = ALLOWED_LAYERS[name]
                 rows = connection.execute(

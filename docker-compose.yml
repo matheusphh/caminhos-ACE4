@@ -35,16 +35,34 @@ services:
     profiles: ["import"]
     entrypoint: ["python", "import_bdgd.py"]
     environment:
-      BDGD_GDB: /data/BDGB.gdb
-      POSTGRES_DB: ${POSTGRES_DB:-bdgd}
-      POSTGRES_USER: ${POSTGRES_USER:-bdgd}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-bdgd}
-      DB_HOST: db
+      BDGD_GDB: ${BDGD_GDB:-/data/BDGB.gdb}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-bdgd}:${POSTGRES_PASSWORD:-bdgd}@db:5432/${POSTGRES_DB:-bdgd}
     volumes:
       - ./dados:/data:ro
     depends_on:
       db:
         condition: service_healthy
+
+  api-supabase:
+    build: ./backend
+    profiles: ["supabase"]
+    environment:
+      DATABASE_URL: ${SUPABASE_DATABASE_URL:-}
+      BDGD_REFERENCE_DATE: ${BDGD_REFERENCE_DATE:-não informada}
+      CORS_ORIGINS: ${CORS_ORIGINS:-*}
+    ports:
+      - "${SUPABASE_API_PORT:-8000}:8000"
+    restart: unless-stopped
+
+  importer-supabase:
+    build: ./backend
+    profiles: ["supabase"]
+    entrypoint: ["python", "import_bdgd.py"]
+    environment:
+      BDGD_GDB: ${BDGD_GDB:-/data/BDGB.gdb}
+      DATABASE_URL: ${SUPABASE_DATABASE_URL:-}
+    volumes:
+      - ./dados:/data:ro
 
 volumes:
   bdgd_data:

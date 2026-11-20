@@ -15,7 +15,7 @@ A seção “Rotas da energia” apresenta três mapas interativos: Rota Azul (P
 
 Na mesma seção, a apresentação interativa permite escolher uma das três origens e avançar por lugares e estruturas até a UFRB. Ela mostra fotografias dos pontos de geração, das cidades, de uma subestação e do campus, com informações ampliadas e uma fonte de referência em cada parada. Os slides de geração incluem um bloco “Contexto e história”: a cronologia de Pedra do Cavalo tem como referência o [INEMA](https://www.ba.gov.br/inema/sites/site-inema/files/2025-09/NT5%20%E2%80%93%20DISPONIBILIDADE%20H%C3%8DDRICA%20SUPERFICIAL_PARAGUA%C3%87U.pdf), a de Paulo Afonso o [histórico institucional da CHESF](https://www.chesf.com.br/relainvest/Documents/Pages/CVM/FR/FRe%20Chesf%20v3%20%281%29.pdf), e a de Alto Sertão II a [Secretaria de Desenvolvimento Econômico da Bahia](https://www.ba.gov.br/sde/2020/08/19/nordeste-da-bahia-tera-complexo-eolico-com-r-13-bilhao-em-investimentos). Os demais conteúdos usam informações do [ONS sobre o SIN](https://www.ons.org.br/paginas/sobre-o-sin/o-que-e-o-sin), da [Eletrobras sobre Paulo Afonso](https://www.eletrobras.com/pt/Paginas/Usinas.aspx), da [ANEEL sobre distribuição](https://www.gov.br/aneel/pt-br/assuntos/distribuicao/regulacao), da [EPE sobre energia eólica](https://www.epe.gov.br/pt/imprensa/noticias/epe-publica-boletim-trimestral-de-energia-eolica) e da [UFRB sobre a usina solar do campus](https://ufrb.edu.br/portal1/noticias/7579-nota-da-ufrb-sobre-o-desligamento-programado-de-energia-no-campus-cruz-das-almas-na-sexta-feira-4). O botão “Ver slide em tela cheia” expande somente a etapa atual, sem colocar a página inteira em tela cheia; Esc permite sair. A entrada de cada etapa é animada. O texto esclarece que as rotas são possibilidades educativas, não rastreamento do fornecimento real ao campus.
 
-O mapa e a API estão preparados no repositório, mas só exibem dados depois de importar a geodatabase e iniciar o serviço. A base cartográfica da distribuidora é disponibilizada pela ANEEL em arquivo `.gdb`; por seu tamanho, ela não é armazenada neste repositório. A API deve ser hospedada em um serviço com Docker e PostGIS. O GitHub Pages serve apenas a página estática, portanto a publicação pública do mapa exige hospedar a API separadamente e definir `window.BDGD_API_URL` antes de `bdgd-map.js` (por exemplo, com `<script>window.BDGD_API_URL = 'https://api.exemplo.br';</script>` no `index.html`) e restringir `CORS_ORIGINS` ao domínio do site.
+O mapa e a API estão preparados no repositório, mas só exibem dados depois de importar a geodatabase e iniciar o serviço. A base cartográfica da distribuidora é disponibilizada pela ANEEL em arquivo `.gdb`; por seu tamanho, ela não é armazenada neste repositório. O banco pode ser PostGIS local ou PostgreSQL/PostGIS no Supabase. O Supabase fornece o banco, enquanto a API FastAPI precisa continuar hospedada separadamente. O GitHub Pages serve apenas a página estática, portanto a publicação pública do mapa exige hospedar a API e definir `window.BDGD_API_URL` antes de `bdgd-map.js` (por exemplo, com `<script>window.BDGD_API_URL = 'https://api.exemplo.br';</script>` no `index.html`) e restringir `CORS_ORIGINS` ao domínio do site. A URL e a senha do banco ficam apenas no ambiente da API e do importador; nunca no JavaScript do site.
 
 ### Preparar os dados e iniciar localmente
 
@@ -24,6 +24,16 @@ O mapa e a API estão preparados no repositório, mas só exibem dados depois de
 3. Execute `docker compose up -d --build db api` para iniciar PostGIS e a API em `http://localhost:8000`.
 4. Execute `docker compose --profile import build importer` para atualizar a imagem do importador e, em seguida, `docker compose --profile import run --rm importer` para importar as camadas do recorte ao redor do campus. O importador aceita os formatos de listagem de camadas das versões atuais e antigas do GDAL; quando `UNTRD` não existir, usa `UNTRMT` como origem para os transformadores de média tensão. O script `./run.sh` executa a inicialização, reconstrói o importador, importa os dados e inicia o servidor HTTP nesta ordem.
 5. Sirva o site por HTTP local, por exemplo com `python3 -m http.server 8001`, e acesse `http://localhost:8001`. A página consulta a API em `http://localhost:8000`.
+
+### Preparar o banco no Supabase
+
+1. Crie um projeto Supabase e habilite PostGIS. A extensão é instalada no schema `extensions`; a migration do repositório também solicita essa configuração e cria o schema privado `bdgd` para as camadas espaciais.
+2. Aplique `supabase/migrations/20261120000000_prepare_bdgd_schema.sql` pelo SQL Editor do projeto. Ela também move as tabelas `bdgd_*` existentes em `public` para `bdgd`, quando ainda não houver uma tabela correspondente nesse schema.
+3. Em **Project Settings → Database → Connect**, copie a URL de conexão PostgreSQL e coloque-a como `SUPABASE_DATABASE_URL` no `.env` local e como `DATABASE_URL` no ambiente do serviço que hospedará a API. Mantenha SSL habilitado. Para conexões persistentes e importação, prefira a conexão direta ou o Session Pooler; o Transaction Pooler é destinado a conexões curtas/serverless. Se o computador ou provedor não tiver IPv6, use o Session Pooler conforme a opção oferecida pelo projeto.
+4. Com a geodatabase em `dados/` e `.env` configurado, construa o importador e envie as camadas recortadas: `docker compose --profile supabase build importer-supabase` e `docker compose --profile supabase run --rm importer-supabase`. O destino é o schema `bdgd` e a importação substitui as quatro tabelas do recorte.
+5. Para uma execução local da API apontando ao banco remoto, use `docker compose --profile supabase up -d --build api-supabase`; ela ficará em `http://localhost:8000` por padrão. Em produção, configure no serviço da API `DATABASE_URL`, `BDGD_REFERENCE_DATE` e `CORS_ORIGINS`, e aponte o site para a URL HTTPS dessa API. Não publique a chave de banco nem use credenciais Postgres no frontend.
+
+O Supabase não hospeda o processo FastAPI deste projeto: ele armazena o PostGIS; a API e o site são implantados separadamente. O schema `bdgd` fica fora do acesso público da API REST do Supabase, e a API própria conecta com credenciais do servidor. A configuração do projeto e a importação precisam ser feitas no projeto Supabase escolhido.
 
 O endpoint `GET /api/features?bbox=oeste,sul,leste,norte&layers=SSDMT,SSDBT,UNTRD,SUB` devolve GeoJSON da área visível. A API limita a consulta a um grau por eixo e 5.000 feições por camada. Também disponibiliza `GET /api/health`. Para produção, use HTTPS e credenciais próprias. O valor inicial `http://localhost:8000` é apenas para desenvolvimento local.
 
@@ -38,7 +48,8 @@ O endpoint `GET /api/features?bbox=oeste,sul,leste,norte&layers=SSDMT,SSDBT,UNTR
 - `styles-accessibility.css` — ajustes de tamanho de texto, contraste, área de toque e foco visível por teclado.
 - `styles-spacing.css` — espaçamento vertical responsivo entre as seções da página.
 - `backend/` — API FastAPI, imagem Docker, inicialização PostGIS e importador de camadas.
-- `docker-compose.yml` — serviços locais de PostGIS, API e importação.
+- `docker-compose.yml` — serviços locais de PostGIS/API/importação e perfis da API/importação conectados ao Supabase.
+- `supabase/migrations/` — migration de PostGIS e preparação privada do schema das camadas BDGD.
 - `AGENT.MD` — orientações para contribuições e manutenção da documentação.
 
 ## Conteúdo da jornada
@@ -68,6 +79,8 @@ Toda alteração no código deve ser registrada neste README na mesma contribui�
 ## Histórico de alterações
 
 - **2026-11-20** — Redução dos intervalos verticais entre seções e ajustes correspondentes para telas pequenas. Arquivos: `index.html`, `styles-spacing.css`, `README.md`.
+
+- **2026-11-20** — Preparação do banco para Supabase com migration PostGIS/schema privado, conexão por `DATABASE_URL`, importação em `bdgd` e perfis Docker remotos. Arquivos: `backend/app.py`, `backend/import_bdgd.py`, `docker-compose.yml`, `.env.example`, `supabase/migrations/20261120000000_prepare_bdgd_schema.sql`, `README.md`.
 
 - **2026-11-20** — Inclusão de contexto histórico para Pedra do Cavalo, Complexo de Paulo Afonso e Alto Sertão II, com fontes institucionais por ponto de geração. Arquivos: `index.html`, `route-presentation.js`, `styles-presentation.css`, `styles-accessibility.css`, `README.md`.
 
