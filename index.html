@@ -11,16 +11,18 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="styles-bdgd.css">
+  <link rel="stylesheet" href="styles-routes.css">
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
   <script src="script.js" defer></script>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
   <script src="bdgd-map.js" defer></script>
+  <script src="route-maps.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
   <header class="topbar">
     <a class="brand" href="#inicio" aria-label="Energia em percurso, início"><span class="brand-mark">ϟ</span><span>ENERGIA <i>EM PERCURSO</i></span></a>
-    <nav aria-label="Navegação principal"><a href="#jornada">A jornada</a><a href="#rede-ufrb">Rede na UFRB</a><a href="#no-campus">No campus</a><a href="#agir">Faça parte</a></nav>
+    <nav aria-label="Navegação principal"><a href="#jornada">A jornada</a><a href="#rotas-energia">Rotas de energia</a><a href="#rede-ufrb">Rede na UFRB</a><a href="#no-campus">No campus</a><a href="#agir">Faça parte</a></nav>
     <a class="top-cta" href="#jornada">Explorar <span>↗</span></a>
   </header>
 
@@ -92,6 +94,29 @@
           <article data-story-step><p data-category>NOSSA HISTÓRIA CONTINUA AQUI</p><p data-index>06</p><h3 data-title>Na UFRB, a energia<br>também nasce aqui.</h3><p data-text>Os circuitos urbanos de distribuição levam energia pelas ruas de Cruz das Almas até o campus da UFRB. Ali, a rede elétrica atende aulas, pesquisas e serviços, junto com a geração da usina solar fotovoltaica integrada ao campus.</p><p data-fact>Com a usina solar, parte da energia consumida localmente é gerada no próprio campus.</p><p data-tag>UFRB · GERAÇÃO LOCAL</p><p data-symbol>⌂</p></article>
         </div>
       </div>
+    </section>
+
+    <section class="energy-routes section-pad" id="rotas-energia" aria-labelledby="routes-title">
+      <div class="section-heading"><div><p class="eyebrow">TRÊS CAMINHOS · UM DESTINO</p><h2 id="routes-title">Rotas da<br><em>energia.</em></h2></div><p>Explore os caminhos entre usinas, redes de transmissão e a UFRB. Arraste e aproxime os mapas; toque nos pontos para ver cada etapa.</p></div>
+      <div class="route-maps-grid">
+        <article class="route-map-card route-blue" aria-labelledby="route-blue-title">
+          <header><span class="route-color-tag">ROTA 01</span><h3 id="route-blue-title">Rota Azul</h3><p>Pedra do Cavalo até o campus</p></header>
+          <div class="route-map" id="route-map-blue" role="region" aria-label="Mapa interativo da Rota Azul"></div>
+          <ol class="route-stops"><li>Pedra do Cavalo</li><li>Cachoeira</li><li>Governador Mangabeira</li><li>Cruz das Almas</li><li>UFRB</li></ol>
+        </article>
+        <article class="route-map-card route-green" aria-labelledby="route-green-title">
+          <header><span class="route-color-tag">ROTA 02</span><h3 id="route-green-title">Rota Verde</h3><p>Paulo Afonso e conexões CHESF</p></header>
+          <div class="route-map" id="route-map-green" role="region" aria-label="Mapa interativo da Rota Verde"></div>
+          <ol class="route-stops"><li>Complexo Paulo Afonso</li><li>Paulo Afonso</li><li>Rede CHESF</li><li>Governador Mangabeira</li><li>Cruz das Almas</li><li>UFRB</li></ol>
+        </article>
+        <article class="route-map-card route-yellow" aria-labelledby="route-yellow-title">
+          <header><span class="route-color-tag">ROTA 03</span><h3 id="route-yellow-title">Rota Amarela</h3><p>Geração eólica e subestação</p></header>
+          <div class="route-map" id="route-map-yellow" role="region" aria-label="Mapa interativo da Rota Amarela"></div>
+          <ol class="route-stops"><li>Complexos Eólicos da Bahia</li><li>Subestação Sapeaçu</li><li>Cruz das Almas</li><li>UFRB</li></ol>
+        </article>
+      </div>
+      <p class="routes-note">As linhas são esquemáticas e conectam os pontos indicados para fins educativos. Elas não representam o traçado exato das linhas de transmissão nem o fluxo físico da energia no SIN. A posição da rede CHESF e da origem eólica é ilustrativa.</p>
+      <p class="routes-attribution">Referências geográficas: <a href="https://www.ba.gov.br/seplan/sites/site-seplan/files/2025-07/Atlas%20das%20%C3%A1guas%20da%20Bahia.pdf" target="_blank" rel="noreferrer">Atlas das Águas da Bahia</a> · <a href="https://www.epe.gov.br/sites-pt/publicacoes-dados-abertos/publicacoes/PublicacoesArquivos/publicacao-276/topico-623/EPE-DEE-RE-006_2016-rev0%20%28Gera%C3%A7%C3%A3o%20%C3%81rea%20Sul%20NE%29%20-%2017jun2016.pdf" target="_blank" rel="noreferrer">EPE, corredor SE Sapeaçu</a> · pontos urbanos aproximados.</p>
     </section>
 
     <section class="bdgd-section section-pad" id="rede-ufrb" aria-labelledby="bdgd-title">

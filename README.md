@@ -11,6 +11,8 @@ O conteúdo editorial pode ser aberto diretamente em `index.html`. Para usar o m
 
 A seção “A rede perto da UFRB” consulta uma API própria alimentada pela BDGD da Neoenergia Coelba, em um banco PostgreSQL/PostGIS. O mapa mostra os segmentos de média tensão (`SSDMT`), os segmentos de baixa tensão (`SSDBT`), as unidades transformadoras de distribuição (`UNTRD`) e as áreas de subestação (`SUB`) no entorno do campus de Cruz das Almas. A camada de baixa tensão é opcional e começa desativada para reduzir a densidade visual. O processo de importação recorta essas camadas para a região do campus e não importa camadas de unidades consumidoras.
 
+A seção “Rotas da energia” apresenta três mapas interativos: Rota Azul (Pedra do Cavalo–UFRB), Rota Verde (Paulo Afonso–UFRB) e Rota Amarela (complexos eólicos–Sapeaçu–UFRB). Os mapas permitem arrastar, aproximar e abrir os pontos. As linhas são esquemáticas e não afirmam o traçado das linhas de transmissão ou o caminho físico da energia no SIN; a localização indicada para a Rede CHESF e para os complexos eólicos é ilustrativa.
+
 O mapa e a API estão preparados no repositório, mas só exibem dados depois de importar a geodatabase e iniciar o serviço. A base cartográfica da distribuidora é disponibilizada pela ANEEL em arquivo `.gdb`; por seu tamanho, ela não é armazenada neste repositório. A API deve ser hospedada em um serviço com Docker e PostGIS. O GitHub Pages serve apenas a página estática, portanto a publicação pública do mapa exige hospedar a API separadamente e definir `window.BDGD_API_URL` antes de `bdgd-map.js` (por exemplo, com `<script>window.BDGD_API_URL = 'https://api.exemplo.br';</script>` no `index.html`) e restringir `CORS_ORIGINS` ao domínio do site.
 
 ### Preparar os dados e iniciar localmente
@@ -29,6 +31,7 @@ O endpoint `GET /api/features?bbox=oeste,sul,leste,norte&layers=SSDMT,SSDBT,UNTR
 - `styles.css` — identidade visual, animações e layouts responsivos para computador, tablet e smartphone.
 - `script.js` — navegação interativa pelas seis etapas da jornada.
 - `bdgd-map.js` e `styles-bdgd.css` — mapa Leaflet e controles das camadas BDGD.
+- `route-maps.js` e `styles-routes.css` — três mapas interativos esquemáticos das rotas até a UFRB.
 - `backend/` — API FastAPI, imagem Docker, inicialização PostGIS e importador de camadas.
 - `docker-compose.yml` — serviços locais de PostGIS, API e importação.
 - `AGENT.MD` — orientações para contribuições e manutenção da documentação.
@@ -55,6 +58,8 @@ Os rótulos dos pontos da jornada também estão no HTML, dentro de `.route-list
 Toda alteração no código deve ser registrada neste README na mesma contribuição. Atualize a seção afetada e acrescente uma entrada em **Histórico de alterações**, descrevendo o que mudou e quais arquivos foram afetados. Consulte `AGENT.MD` para as orientações completas.
 
 ## Histórico de alterações
+
+- **2026-11-19** — Inclusão de três mapas interativos esquemáticos (Rotas Azul, Verde e Amarela), com pontos clicáveis, linhas coloridas e aviso sobre a natureza ilustrativa dos trajetos. Arquivos: `index.html`, `route-maps.js`, `styles-routes.css`, `README.md`.
 
 - **2026-11-19** — Alinhamento do caminho da geodatabase com o arquivo disponível (`dados/BDGB.gdb`) e correção da chamada do serviço importador no `run.sh`. Arquivos: `docker-compose.yml`, `run.sh`, `README.md`.
 - **2026-11-19** — Compatibilidade do importador com formatos de listagem do GDAL e com a camada `UNTRMT` usada em algumas versões da BDGD. Arquivos: `backend/import_bdgd.py`, `README.md`.
