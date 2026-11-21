@@ -6,7 +6,9 @@ from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
 DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://bdgd:bdgd@localhost:5432/bdgd")
-REFERENCE_DATE = os.getenv("BDGD_REFERENCE_DATE", "não informada")
+REFERENCE_DATE = os.getenv("BDGD_REFERENCE_DATE", "não informada").strip()
+if REFERENCE_DATE.lower().startswith(("postgres://", "postgresql://")):
+    REFERENCE_DATE = "não informada"
 ALLOWED_LAYERS = {
     "SSDMT": "bdgd.bdgd_ssdmt",
     "SSDBT": "bdgd.bdgd_ssdbt",
@@ -22,7 +24,13 @@ def connect_database():
     )
 
 app = FastAPI(title="API BDGD — UFRB", version="1.0.0")
-origins = [origin.strip() for origin in os.getenv("CORS_ORIGINS", "*").split(",") if origin.strip()]
+SITE_ORIGIN = "https://matheusphh.github.io"
+configured_origins = os.getenv("CORS_ORIGINS", SITE_ORIGIN).strip()
+origins = [origin.strip() for origin in configured_origins.split(",") if origin.strip()]
+if not origins:
+    origins = [SITE_ORIGIN]
+elif SITE_ORIGIN not in origins and "*" not in origins:
+    origins.append(SITE_ORIGIN)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
