@@ -43,23 +43,39 @@
     });
   });
 
+  let refreshVersion = 0;
   async function refresh() {
+    const requestVersion = ++refreshVersion;
     const bounds = map.getBounds();
     const bbox = [bounds.getWest(), bounds.getSouth(), bounds.getEast(), bounds.getNorth()].join(',');
     const enabled = [...document.querySelectorAll('[data-bdgd-layer]:checked')].map((input) => input.dataset.bdgdLayer);
+
+    if (enabled.length === 0) {
+      Object.values(layers).forEach((layer) => layer.clearLayers());
+      status.textContent = 'Selecione ao menos uma camada para exibir os dados.';
+      return;
+    }
+
     status.textContent = 'Carregando feições da área visível…';
     try {
       const query = new URLSearchParams({ bbox, layers: enabled.join(',') });
       const response = await fetch(`${API_BASE_URL}/api/features?${query}`);
       if (!response.ok) throw new Error(`HTTP ${response.status}`);
       const result = await response.json();
+      if (requestVersion !== refreshVersion) return;
+
+      const currentEnabled = new Set(
+        [...document.querySelectorAll('[data-bdgd-layer]:checked')].map((input) => input.dataset.bdgdLayer)
+      );
       Object.entries(layers).forEach(([name, layer]) => {
         layer.clearLayers();
-        if (enabled.includes(name)) layer.addData(result.layers[name]);
+        if (currentEnabled.has(name)) layer.addData(result.layers[name]);
       });
       status.textContent = `${result.count} elementos na área visível · data-base ${result.reference_date || 'não informada'}`;
     } catch (error) {
-      status.textContent = 'Não foi possível acessar a API BDGD. Configure o serviço e confirme se está em execução.';
+      if (requestVersion === refreshVersion) {
+        status.textContent = 'Não foi possível acessar a API BDGD. Configure o serviço e confirme se está em execução.';
+      }
     }
   }
 

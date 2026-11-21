@@ -101,6 +101,8 @@ Toda alteração no código deve ser registrada neste README na mesma contribui�
 
 - **2026-11-21** — Correção da URL pública da API no site, fallback CORS para GitHub Pages e proteção para não retornar uma URL PostgreSQL no campo da data-base. Arquivos: `index.html`, `backend/app.py`, `README.md`.
 
+- **2026-11-21** — Proteção dos filtros do mapa contra respostas antigas quando as camadas mudam rapidamente e mensagem para o estado sem camadas selecionadas. Arquivos: `bdgd-map.js`, `README.md`.
+
 - **2026-11-20** — Inclusão de contexto histórico para Pedra do Cavalo, Complexo de Paulo Afonso e Alto Sertão II, com fontes institucionais por ponto de geração. Arquivos: `index.html`, `route-presentation.js`, `styles-presentation.css`, `styles-accessibility.css`, `README.md`.
 
 - **2026-11-20** — Ampliação do texto dos slides com dados de fontes institucionais e links de referência por parada, mantendo a distinção entre contexto regional e trajeto elétrico comprovado. Arquivos: `route-presentation.js`, `index.html`, `styles-presentation.css`, `styles-accessibility.css`, `README.md`.
