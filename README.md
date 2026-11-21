@@ -35,6 +35,18 @@ O mapa e a API estão preparados no repositório, mas só exibem dados depois de
 
 O Supabase não hospeda o processo FastAPI deste projeto: ele armazena o PostGIS; a API e o site são implantados separadamente. O schema `bdgd` fica fora do acesso público da API REST do Supabase, e a API própria conecta com credenciais do servidor. A configuração do projeto e a importação precisam ser feitas no projeto Supabase escolhido.
 
+### Publicar no Vercel
+
+O repositório contém configuração para dois projetos Vercel conectados ao mesmo Git:
+
+1. Crie o projeto do site com **Root Directory** na raiz do repositório. O `vercel.json` raiz seleciona o modo estático e publica HTML, CSS, JavaScript e imagens.
+2. Crie outro projeto Vercel com **Root Directory** definido como `backend`. A configuração `backend/vercel.json` e `app.py` publicam a API FastAPI como Vercel Function; `requirements.txt` instala as dependências. Se o projeto da API usar a raiz do repositório como **Root Directory**, `pyproject.toml` informa o entrypoint `backend.app:app` à Vercel.
+3. No projeto Vercel da API, defina `DATABASE_URL` com a URL **Transaction Pooler** do Supabase (porta `6543`), além de `BDGD_REFERENCE_DATE` e `CORS_ORIGINS`. Em `CORS_ORIGINS`, informe a origem exata do site, como `https://seu-site.vercel.app`, sem barra final. A Vercel executa FastAPI como uma função; o Transaction Pooler é adequado às conexões curtas da função. Configure esses valores nos ambientes Preview e Production conforme necessário.
+4. No `index.html`, antes de `bdgd-map.js`, defina a URL pública do projeto Vercel da API: `<script>window.BDGD_API_URL = 'https://sua-api.vercel.app';</script>`. Faça commit dessa configuração e publique novamente o site. Essa URL é pública; não coloque a URL do banco, senha ou chave Supabase nesse arquivo.
+5. Para importar a BDGD, use o importador local já documentado acima com a URL direta ou Session Pooler em `SUPABASE_DATABASE_URL`. Não use o Transaction Pooler para a importação em lote via GDAL. As funções Vercel não executam esse processo de importação.
+
+No painel Vercel, mantenha separadas as raízes dos projetos (raiz para o site, `backend` para API). A aplicação também pode ser implantada por conexão do GitHub com deploy automático a cada atualização.
+
 O endpoint `GET /api/features?bbox=oeste,sul,leste,norte&layers=SSDMT,SSDBT,UNTRD,SUB` devolve GeoJSON da área visível. A API limita a consulta a um grau por eixo e 5.000 feições por camada. Também disponibiliza `GET /api/health`. Para produção, use HTTPS e credenciais próprias. O valor inicial `http://localhost:8000` é apenas para desenvolvimento local.
 
 ## Estrutura do repositório
@@ -50,6 +62,7 @@ O endpoint `GET /api/features?bbox=oeste,sul,leste,norte&layers=SSDMT,SSDBT,UNTR
 - `backend/` — API FastAPI, imagem Docker, inicialização PostGIS e importador de camadas.
 - `docker-compose.yml` — serviços locais de PostGIS/API/importação e perfis da API/importação conectados ao Supabase.
 - `supabase/migrations/` — migration de PostGIS e preparação privada do schema das camadas BDGD.
+- `vercel.json` e `backend/vercel.json` — configuração do projeto Vercel estático e do projeto Vercel da API FastAPI.
 - `AGENT.MD` — orientações para contribuições e manutenção da documentação.
 
 ## Conteúdo da jornada
@@ -81,6 +94,10 @@ Toda alteração no código deve ser registrada neste README na mesma contribui�
 - **2026-11-20** — Redução dos intervalos verticais entre seções e ajustes correspondentes para telas pequenas. Arquivos: `index.html`, `styles-spacing.css`, `README.md`.
 
 - **2026-11-20** — Preparação do banco para Supabase com migration PostGIS/schema privado, conexão por `DATABASE_URL`, importação em `bdgd` e perfis Docker remotos. Arquivos: `backend/app.py`, `backend/import_bdgd.py`, `docker-compose.yml`, `.env.example`, `supabase/migrations/20261120000000_prepare_bdgd_schema.sql`, `README.md`.
+
+- **2026-11-20** — Configuração de deploy no Vercel em projetos separados para site estático e API FastAPI, com instruções de pooler e CORS. Arquivos: `vercel.json`, `backend/vercel.json`, `README.md`.
+
+- **2026-11-21** — Declaração explícita do entrypoint FastAPI para builds Vercel com a raiz do repositório como diretório do projeto. Arquivos: `pyproject.toml`, `README.md`.
 
 - **2026-11-20** — Inclusão de contexto histórico para Pedra do Cavalo, Complexo de Paulo Afonso e Alto Sertão II, com fontes institucionais por ponto de geração. Arquivos: `index.html`, `route-presentation.js`, `styles-presentation.css`, `styles-accessibility.css`, `README.md`.
 
