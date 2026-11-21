@@ -1,0 +1,23 @@
+/* Keep supporting copy and interface labels readable throughout the site. */
+body{font-size:16px;line-height:1.65}
+.topbar nav,.top-cta,.button,.route-stop,.presentation-choices button{font-size:14px}
+.brand{font-size:13px}
+.eyebrow,.hero-meta,.art-label,.art-coord,.hero-side,.route-head,.route-foot,.story-category,.story-index,.story-bottom>span,.story-more,.action-prompt,footer,.route-color-tag,.presentation-choices button span,.presentation-photo>span,.presentation-progress,.presentation-kicker,.presentation-history h5{font-size:12px}
+.hero-lede,.strip-copy,.section-heading>p,.campus-text>p:not(.eyebrow),.action-content>p:not(.eyebrow),.story-body>p:not(.story-index),.use-card p,.route-map-card header p,.route-stops li,.routes-note,.routes-attribution,.bdgd-toolbar label,.bdgd-status,.bdgd-attribution,.presentation-heading>p,.presentation-copy>p:not(.presentation-kicker),.presentation-note,.presentation-source,.presentation-history p{font-size:16px}
+.fact-box p,.presentation-copy .presentation-detail{font-size:14px!important}
+.presentation-controls button{font-size:14px}
+.presentation-history a{font-size:14px}
+.chapter-pager a{font-size:14px}
+.chapter-pager span{font-size:12px}
+.detail-back,.detail-index,.detail-pager a{font-size:14px}
+.detail-article section p,.detail-fact p{font-size:16px}
+.detail-article .detail-lede{font-size:22px}
+@media(max-width:620px){
+  .topbar nav a{font-size:13px}
+  .hero-meta,.route-foot,.art-label,.art-coord,.route-head,.route-color-tag,.presentation-choices button span,.presentation-photo>span,.presentation-progress,.presentation-kicker,.presentation-note{font-size:12px}
+  .route-stop{font-size:14px}
+  .bdgd-toolbar label{font-size:14px}
+  .presentation-copy>p:not(.presentation-kicker),.presentation-history p{font-size:16px}
+  .chapter-pager a{font-size:12px}
+  .detail-pager a{font-size:12px}
+}

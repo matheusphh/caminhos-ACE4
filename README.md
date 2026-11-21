@@ -5,7 +5,7 @@ Site interativo de um projeto de extensão que apresenta a jornada da energia el
 
 ## Como abrir
 
-O conteúdo editorial pode ser aberto diretamente em `index.html`. Para usar o mapa, é necessário iniciar também a API local e servir a página por HTTP; siga as instruções da seção abaixo. O restante do site continua disponível sem o serviço BDGD.
+O site pode ser percorrido como uma sequência de capítulos em `index.html?pagina=0` a `index.html?pagina=5`, com navegação anterior/próximo e links entre as etapas. A página inicial do site mantém todo o conteúdo acessível em sequência. Para usar o mapa, é necessário iniciar também a API local e servir a página por HTTP; siga as instruções da seção abaixo. O restante do site continua disponível sem o serviço BDGD.
 
 ## Mapa da rede elétrica próxima à UFRB
 
@@ -90,6 +90,9 @@ Os rótulos dos pontos da jornada também estão no HTML, dentro de `.route-list
 Toda alteração no código deve ser registrada neste README na mesma contribuição. Atualize a seção afetada e acrescente uma entrada em **Histórico de alterações**, descrevendo o que mudou e quais arquivos foram afetados. Consulte `AGENT.MD` para as orientações completas.
 
 ## Histórico de alterações
+
+- **2026-11-21** — Organização das seções em seis capítulos navegáveis por URL, com controles de avançar/retroceder, progresso e links entre capítulos; atualização do tamanho dos mapas ao abrir um capítulo. Arquivos: `index.html`, `chapters.js`, `styles-chapters.css`, `route-maps.js`, `bdgd-map.js`, `README.md`.
+- **2026-11-21** — Padronização da tipografia com corpo de texto em 16 px e rótulos de interface com pelo menos 12 px, inclusive nas páginas de detalhe e em telas pequenas. Arquivos: `index.html`, `detalhe.html`, `styles-typography.css`, `README.md`.
 
 - **2026-11-20** — Redução dos intervalos verticais entre seções e ajustes correspondentes para telas pequenas. Arquivos: `index.html`, `styles-spacing.css`, `README.md`.
 

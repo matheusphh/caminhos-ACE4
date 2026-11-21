@@ -32,11 +32,13 @@
     }
   ];
 
+  window.energyRouteMaps = [];
   routes.forEach((route) => {
     const element = document.querySelector(`#route-map-${route.id}`);
     if (!element) return;
 
     const map = L.map(element, { scrollWheelZoom: false, zoomControl: true });
+    window.energyRouteMaps.push(map);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
       attribution: '&copy; OpenStreetMap'
@@ -58,4 +60,5 @@
     map.fitBounds(points, { padding: [24, 24] });
     window.addEventListener('load', () => map.invalidateSize());
   });
+  window.addEventListener('chapterchange', () => window.energyRouteMaps.forEach((map) => map.invalidateSize()));
 })();

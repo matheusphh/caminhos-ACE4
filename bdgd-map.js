@@ -10,6 +10,7 @@
 
   const API_BASE_URL = (window.BDGD_API_URL || 'http://localhost:8000').replace(/\/$/, '');
   const map = L.map(mapElement).setView([-12.6681, -39.0767], 14);
+  window.bdgdMap = map;
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; OpenStreetMap contributors'
@@ -81,6 +82,7 @@
 
   let timer;
   map.on('moveend', () => { clearTimeout(timer); timer = setTimeout(refresh, 180); });
+  window.addEventListener('chapterchange', () => map.invalidateSize());
   document.querySelectorAll('[data-bdgd-layer]').forEach((input) => input.addEventListener('change', refresh));
   refresh();
 })();
