@@ -1,0 +1,20 @@
+/* Reduz os grandes intervalos verticais sem apertar o conteúdo interno. */
+.section-pad{padding-block:78px 84px}
+.section-heading{margin-bottom:32px}
+.campus-section{padding-block:74px}
+.action-section{padding-block:70px;min-height:0}
+.closing{padding-block:32px}
+.route-presentation{margin-bottom:40px}
+@media(max-width:850px){
+  .section-pad{padding-block:66px 72px}
+  .campus-section{padding-block:64px}
+  .action-section{padding-block:60px}
+}
+@media(max-width:620px){
+  .section-pad{padding-block:52px 58px}
+  .section-heading{margin-bottom:24px}
+  .campus-section{padding-block:52px}
+  .action-section{padding-block:48px}
+  .closing{padding-block:26px}
+  .route-presentation{margin-bottom:30px}
+}

@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f3ec">
+  <meta name="description" content="Uma viagem interativa pela energia elétrica: da produção ao uso cotidiano na UFRB.">
+  <title>Uma viagem da energia — UFRB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles-bdgd.css">
+  <link rel="stylesheet" href="styles-routes.css">
+  <link rel="stylesheet" href="styles-presentation.css">
+  <link rel="stylesheet" href="styles-accessibility.css">
+  <link rel="stylesheet" href="styles-spacing.css">
+  <link rel="stylesheet" href="styles-chapters.css">
+  <link rel="stylesheet" href="styles-typography.css">
+  <link rel="stylesheet" href="styles-responsive.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+  <script src="script.js" defer></script>
+  <script src="chapters.js" defer></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="" defer></script>
+  <script>window.BDGD_API_URL = 'https://caminhos-ace-4.vercel.app';</script>
+  <script src="bdgd-map.js" defer></script>
+  <script src="route-maps.js" defer></script>
+  <script src="route-presentation.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+  <header class="topbar">
+    <a class="brand" href="?pagina=0" aria-label="Energia em percurso, início"><span class="brand-mark">ϟ</span><span>ENERGIA <i>EM PERCURSO</i></span></a>
+    <nav aria-label="Navegação principal"><a href="?pagina=1">A jornada</a><a href="?pagina=2">Rotas de energia</a><a href="?pagina=3">Rede na UFRB</a><a href="?pagina=4">No campus</a><a href="?pagina=5">Faça parte</a></nav>
+    <a class="top-cta" href="?pagina=1">Explorar <span>↗</span></a>
+  </header>
+
+  <main id="conteudo">
+    <section class="hero" id="inicio" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="live-dot"></span> PROJETO DE EXTENSÃO · UFRB</p>
+        <h1 id="hero-title">Da fonte<br>à <span>tomada.</span></h1>
+        <p class="hero-lede">A energia faz uma longa viagem antes de acender uma sala, mover uma ideia ou conectar pessoas. Vamos seguir esse caminho?</p>
+        <a class="button button-dark" href="?pagina=1">Começar a jornada <span>↓</span></a>
+        <div class="hero-meta"><span>UMA HISTÓRIA EM MOVIMENTO</span><span>⏱ 4 MIN DE LEITURA</span></div>
+      </div>
+      <div class="hero-art" aria-label="Ilustração animada de uma usina conectada à universidade por linhas de energia">
+        <div class="art-label label-source">01 / PRODUÇÃO</div><div class="art-label label-campus">06 / UFRB</div>
+        <svg class="landscape" viewBox="0 0 760 620" role="img" aria-hidden="true">
+          <defs>
+            <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#e6eddb"/><stop offset="1" stop-color="#c9d9c1"/></linearGradient>
+            <linearGradient id="hill" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#71957b"/><stop offset="1" stop-color="#486e5a"/></linearGradient>
+          </defs>
+          <rect x="0" y="0" width="760" height="620" rx="30" fill="url(#sky)"/>
+          <circle cx="583" cy="118" r="53" fill="#edb84d" class="sun-pulse"/>
+          <path d="M0 390 Q140 290 260 380 T520 350 T760 370 V620 H0Z" fill="#9caf8e"/>
+          <path d="M0 454 Q160 356 312 440 T590 413 T760 436 V620 H0Z" fill="url(#hill)"/>
+          <g class="turbine-mast" stroke="#27483a" stroke-width="6" stroke-linecap="round"><path d="M120 342V155"/></g>
+          <g class="turbine-rotor" stroke="#27483a" stroke-width="6" stroke-linecap="round"><path d="M120 155L93 80M120 155L195 143M120 155L103 234"/><circle cx="120" cy="155" r="8" fill="#edb84d" stroke="none"/></g>
+          <g class="turbine-mast turbine-mast-two" stroke="#27483a" stroke-width="5" stroke-linecap="round"><path d="M229 372V218"/></g>
+          <g class="turbine-rotor turbine-two" stroke="#27483a" stroke-width="5" stroke-linecap="round"><path d="M229 218L208 155M229 218L289 207M229 218L216 281"/><circle cx="229" cy="218" r="7" fill="#edb84d" stroke="none"/></g>
+          <g class="solar"><path d="M354 402l96-12 22 61-103 10z" fill="#234b49"/><path d="M370 408l17 49m13-52 15 49m13-53 14 50m-77-27 99-12m-92 30 100-12" stroke="#8bb7a5" stroke-width="3"/><path d="M386 463v25m62-34 8 24" stroke="#d0c9a5" stroke-width="4"/></g>
+          <g class="campus"><path d="M521 396l94-45 99 45v10H521z" fill="#e7dcc1"/><path d="M535 406h167v113H535z" fill="#f4ead3"/><path d="M521 519h193" stroke="#27483a" stroke-width="5"/><path d="M558 431h25v31h-25zm45 0h25v31h-25zm45 0h25v31h-25z" fill="#83a39a"/><path d="M600 473h32v46h-32z" fill="#d79e45"/><path d="M581 351l34-22 35 22" fill="none" stroke="#27483a" stroke-width="5"/></g>
+          <path class="energy-path" d="M120 155 C230 135 261 270 350 300 S475 324 610 352" fill="none" stroke="#edb84d" stroke-width="4" stroke-dasharray="2 12" stroke-linecap="round"/>
+          <circle class="energy-orb" r="8" fill="#f8d875"><animateMotion dur="5s" repeatCount="indefinite" path="M120 155 C230 135 261 270 350 300 S475 324 610 352"/></circle>
+          <g fill="#27483a"><path d="M63 455v-51l21-24 21 24v51z"/><circle cx="84" cy="374" r="17"/><path d="M706 443v-42l18-22 18 22v42z"/><circle cx="724" cy="368" r="14"/></g>
+        </svg>
+        <div class="art-note"><span class="note-icon">✳</span><span>Uma rede conecta<br>lugares e pessoas.</span></div>
+        <div class="art-coord">12°39′S&nbsp; · &nbsp;39°05′W<br><small>RECÔNCAVO DA BAHIA</small></div>
+      </div>
+      <div class="hero-side">ENERGIA QUE CONECTA <span>—</span> SABERES QUE TRANSFORMAM</div>
+    </section>
+
+    <section class="intro-strip" aria-label="Sobre a jornada"><p>Não vemos o caminho inteiro.<br><strong>Mas fazemos parte dele.</strong></p><div class="strip-copy">Da natureza à rede elétrica, da rede ao campus: descubra de onde vem a energia que usamos e o que podemos fazer com ela.</div><span class="strip-star">✳</span></section>
+
+    <section class="journey section-pad" id="jornada" aria-labelledby="journey-title">
+      <div class="section-heading"><div><p class="eyebrow">SEIS ETAPAS · UMA REDE</p><h2 id="journey-title">Siga o <em>fio.</em></h2></div><p>Toque em cada ponto para acompanhar a eletricidade em seu percurso até a UFRB.</p></div>
+      <div class="journey-layout">
+        <div class="route-panel">
+          <div class="route-head"><span>O PERCURSO</span><span id="routeCount">01 — 06</span></div>
+          <div class="route-line" aria-hidden="true"><span class="route-progress"></span></div>
+          <ol class="route-list" aria-label="Etapas da viagem da energia">
+            <li><button class="route-stop active" data-step="0" aria-current="step"><span class="stop-number">01</span><span>Produção</span><span class="stop-icon">◉</span></button></li>
+            <li><button class="route-stop" data-step="1"><span class="stop-number">02</span><span>Elevação da tensão</span><span class="stop-icon">↗</span></button></li>
+            <li><button class="route-stop" data-step="2"><span class="stop-number">03</span><span>Transmissão</span><span class="stop-icon">⌁</span></button></li>
+            <li><button class="route-stop" data-step="3"><span class="stop-number">04</span><span>Distribuição</span><span class="stop-icon">⤵</span></button></li>
+            <li><button class="route-stop" data-step="4"><span class="stop-number">05</span><span>Uso consciente</span><span class="stop-icon">✳</span></button></li>
+            <li><button class="route-stop" data-step="5"><span class="stop-number">06</span><span>UFRB</span><span class="stop-icon">⌂</span></button></li>
+          </ol>
+          <div class="route-foot"><span>← DESLIZE OU USE AS SETAS →</span><span>01 / 06</span></div>
+        </div>
+        <article class="story-card" aria-live="polite" aria-atomic="true" tabindex="0" aria-label="Card da etapa atual. Clique para ler uma explicação aprofundada.">
+          <div class="story-top"><span class="story-category">A JORNADA COMEÇA</span><span class="story-symbol" aria-hidden="true">◉</span></div>
+          <div class="story-body"><p class="story-index">ETAPA <span id="stepIndex">01</span></p><h3 id="stepTitle">Energia de<br>muitas fontes.</h3><p id="stepText">A energia que chega a Cruz das Almas vem de um conjunto de usinas conectado ao Sistema Interligado Nacional (SIN). Na Bahia, destacam-se as hidrelétricas do rio São Francisco — como Paulo Afonso, Itaparica, Sobradinho e Luiz Gonzaga — e parques eólicos e solares no interior do estado.</p>
+          <div class="fact-box"><span class="fact-icon">i</span><p id="stepFact">A energia gerada por diferentes usinas é injetada na rede interligada, que atende cidades de todo o país.</p></div></div>
+          <div class="story-bottom"><span id="stepTag">FONTE DE ENERGIA</span><div class="story-controls"><a class="story-more" id="storyMore" href="detalhe.html?etapa=0">Explorar tema ↗</a><button class="arrow-button" id="prevStep" aria-label="Etapa anterior">←</button><button class="arrow-button next" id="nextStep" aria-label="Próxima etapa">→</button></div></div>
+        </article>
+        <div class="story-source" hidden aria-hidden="true">
+          <article data-story-step><p data-category>UM IMPULSO PARA IR LONGE</p><p data-index>02</p><h3 data-title>A tensão<br>ganha força.</h3><p data-text>Para percorrer longas distâncias até o Recôncavo Baiano, transformadores elevadores nas usinas ou subestações aumentam a tensão — que pode chegar a 230 kV, 500 kV ou mais. Assim, a transmissão transporta energia com menos perdas por aquecimento dos condutores.</p><p data-fact>As linhas de alta tensão cruzam o estado e se conectam a pontos regionais da rede de transmissão, operada por diferentes concessionárias.</p><p data-tag>ELEVAÇÃO DE TENSÃO</p><p data-symbol>↗</p></article>
+          <article data-story-step><p data-category>UMA VIAGEM EM REDE</p><p data-index>03</p><h3 data-title>Pelos caminhos<br>do Brasil.</h3><p data-text>Linhas e torres de transmissão conduzem a eletricidade entre regiões. Interligadas, elas formam uma rede que conecta lugares onde a energia é produzida aos lugares onde ela é necessária.</p><p data-fact>A rede elétrica interligada ajuda a levar energia de diferentes regiões até cidades e comunidades.</p><p data-tag>TRANSMISSÃO</p><p data-symbol>⌁</p></article>
+          <article data-story-step><p data-category>MAIS PERTO DE VOCÊ</p><p data-index>04</p><h3 data-title>A energia<br>chega à cidade.</h3><p data-text>A partir da subestação regional, a Neoenergia Coelba distribui energia pelas ruas de Cruz das Almas em redes de média tensão, geralmente de 13,8 kV. Esses circuitos urbanos conduzem a eletricidade até o campus da UFRB.</p><p data-fact>O campus da UFRB também conta com uma usina solar fotovoltaica integrada, que gera parte da energia consumida localmente.</p><p data-tag>DISTRIBUIÇÃO LOCAL</p><p data-symbol>⤵</p></article>
+          <article data-story-step><p data-category>UM CUIDADO DE TODO DIA</p><p data-index>05</p><h3 data-title>Cada escolha<br>também conta.</h3><p data-text>Luzes, computadores, equipamentos e sistemas fazem parte da rotina. Usar energia com atenção, evitar desperdícios e cuidar dos espaços compartilhados são atitudes que começam com cada pessoa.</p><p data-fact>Perceber como e quando usamos energia é um primeiro passo para conversar sobre consumo consciente.</p><p data-tag>USO CONSCIENTE</p><p data-symbol>✳</p></article>
+          <article data-story-step><p data-category>NOSSA HISTÓRIA CONTINUA AQUI</p><p data-index>06</p><h3 data-title>Na UFRB, a energia<br>também nasce aqui.</h3><p data-text>Os circuitos urbanos de distribuição levam energia pelas ruas de Cruz das Almas até o campus da UFRB. Ali, a rede elétrica atende aulas, pesquisas e serviços, junto com a geração da usina solar fotovoltaica integrada ao campus.</p><p data-fact>Com a usina solar, parte da energia consumida localmente é gerada no próprio campus.</p><p data-tag>UFRB · GERAÇÃO LOCAL</p><p data-symbol>⌂</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="energy-routes section-pad" id="rotas-energia" aria-labelledby="routes-title">
+      <div class="section-heading"><div><p class="eyebrow">TRÊS CAMINHOS · UM DESTINO</p><h2 id="routes-title">Rotas da<br><em>energia.</em></h2></div><p>Explore os caminhos entre usinas, redes de transmissão e a UFRB. Arraste e aproxime os mapas; toque nos pontos para ver cada etapa.</p></div>
+      <section class="route-presentation" aria-labelledby="presentation-title">
+        <div class="presentation-heading"><div><p class="eyebrow">APRESENTAÇÃO INTERATIVA</p><h3 id="presentation-title">Escolha uma origem<br>e siga <em>o percurso.</em></h3></div><p>Em cada etapa, avance para conhecer os lugares e as estruturas que podem participar do caminho até o campus.</p></div>
+        <div class="presentation-choices" role="group" aria-label="Escolha uma rota de energia">
+          <button type="button" data-presentation-route="blue" aria-pressed="true"><span>ROTA 01</span>Pedra do Cavalo <b>→</b></button>
+          <button type="button" data-presentation-route="green" aria-pressed="false"><span>ROTA 02</span>Paulo Afonso <b>→</b></button>
+          <button type="button" data-presentation-route="yellow" aria-pressed="false"><span>ROTA 03</span>Energia eólica <b>→</b></button>
+        </div>
+        <article class="presentation-slide" aria-live="polite" aria-atomic="true">
+          <div class="presentation-photo"><img id="presentationImage" src="src/rota_1/Pedra_do_cavalo.jpeg" alt="Barragem de Pedra do Cavalo"><span id="presentationPhotoLabel">GERAÇÃO · PEDRA DO CAVALO</span></div>
+          <div class="presentation-copy"><div class="presentation-progress"><span id="presentationRouteName">ROTA AZUL</span><span id="presentationCount">01 / 05</span></div><p class="presentation-kicker" id="presentationKind">USINA HIDRELÉTRICA</p><h4 id="presentationPlace">Pedra do Cavalo</h4><p id="presentationText">A usina hidrelétrica aproveita a água represada para movimentar turbinas e gerar eletricidade. Esta é uma das possibilidades de origem para contar a jornada até a UFRB.</p><p class="presentation-detail" id="presentationDetail">A partir da geração, a energia é conectada à rede elétrica. O caminho mostrado é esquemático e não identifica o fluxo físico de elétrons até o campus.</p><section class="presentation-history" id="presentationHistory" aria-label="Contexto e história" hidden><h5>CONTEXTO E HISTÓRIA</h5><p id="presentationHistoryText"></p><a id="presentationHistorySource" href="#" target="_blank" rel="noopener noreferrer"></a></section><a class="presentation-source" id="presentationSource" href="https://www.ba.gov.br/inema/sites/site-inema/files/2025-09/NT5%20%E2%80%93%20DISPONIBILIDADE%20H%C3%8DDRICA%20SUPERFICIAL_PARAGUA%C3%87U.pdf" target="_blank" rel="noopener noreferrer">Fonte: Plano de Recursos Hídricos do Paraguaçu ↗</a><div class="presentation-controls"><button type="button" id="presentationPrev" aria-label="Lugar anterior" disabled>← Anterior</button><button type="button" id="presentationFullscreen" class="presentation-fullscreen" aria-pressed="false">⛶ <span>Ver slide em tela cheia</span></button><button type="button" id="presentationNext">Próximo lugar <span>→</span></button></div></div>
+        </article>
+        <p class="presentation-note">As rotas são possibilidades didáticas, com conexões esquemáticas. Não representam a trajetória exata da energia nem garantem a origem da eletricidade consumida pela UFRB.</p>
+      </section>
+      <div class="route-maps-grid">
+        <article class="route-map-card route-blue" aria-labelledby="route-blue-title">
+          <header><span class="route-color-tag">ROTA 01</span><h3 id="route-blue-title">Rota Azul</h3><p>Pedra do Cavalo até o campus</p></header>
+          <div class="route-map" id="route-map-blue" role="region" aria-label="Mapa interativo da Rota Azul"></div>
+          <ol class="route-stops"><li>Pedra do Cavalo</li><li>Cachoeira</li><li>Governador Mangabeira</li><li>Cruz das Almas</li><li>UFRB</li></ol>
+        </article>
+        <article class="route-map-card route-green" aria-labelledby="route-green-title">
+          <header><span class="route-color-tag">ROTA 02</span><h3 id="route-green-title">Rota Verde</h3><p>Paulo Afonso e conexões CHESF</p></header>
+          <div class="route-map" id="route-map-green" role="region" aria-label="Mapa interativo da Rota Verde"></div>
+          <ol class="route-stops"><li>Complexo Paulo Afonso</li><li>Paulo Afonso</li><li>Rede CHESF</li><li>Governador Mangabeira</li><li>Cruz das Almas</li><li>UFRB</li></ol>
+        </article>
+        <article class="route-map-card route-yellow" aria-labelledby="route-yellow-title">
+          <header><span class="route-color-tag">ROTA 03</span><h3 id="route-yellow-title">Rota Amarela</h3><p>Geração eólica e subestação</p></header>
+          <div class="route-map" id="route-map-yellow" role="region" aria-label="Mapa interativo da Rota Amarela"></div>
+          <ol class="route-stops"><li>Complexos Eólicos da Bahia</li><li>Subestação Sapeaçu</li><li>Cruz das Almas</li><li>UFRB</li></ol>
+        </article>
+      </div>
+      <p class="routes-note">As linhas são esquemáticas e conectam os pontos indicados para fins educativos. Elas não representam o traçado exato das linhas de transmissão nem o fluxo físico da energia no SIN. A posição da rede CHESF e da origem eólica é ilustrativa.</p>
+      <p class="routes-attribution">Referências geográficas: <a href="https://www.ba.gov.br/seplan/sites/site-seplan/files/2025-07/Atlas%20das%20%C3%A1guas%20da%20Bahia.pdf" target="_blank" rel="noreferrer">Atlas das Águas da Bahia</a> · <a href="https://www.epe.gov.br/sites-pt/publicacoes-dados-abertos/publicacoes/PublicacoesArquivos/publicacao-276/topico-623/EPE-DEE-RE-006_2016-rev0%20%28Gera%C3%A7%C3%A3o%20%C3%81rea%20Sul%20NE%29%20-%2017jun2016.pdf" target="_blank" rel="noreferrer">EPE, corredor SE Sapeaçu</a> · pontos urbanos aproximados.</p>
+    </section>
+
+    <section class="bdgd-section section-pad" id="rede-ufrb" aria-labelledby="bdgd-title">
+      <div class="section-heading"><div><p class="eyebrow">DADOS GEOGRÁFICOS · ANEEL</p><h2 id="bdgd-title">A rede perto<br>da <em>UFRB.</em></h2></div><p>Explore os segmentos de média tensão, transformadores e subestações da Neoenergia Coelba na região do campus de Cruz das Almas.</p></div>
+      <div class="bdgd-toolbar" aria-label="Camadas do mapa">
+        <label><input type="checkbox" data-bdgd-layer="SSDMT" checked> Rede de média tensão</label>
+        <label><input type="checkbox" data-bdgd-layer="SSDBT"> Rede de baixa tensão</label>
+        <label><input type="checkbox" data-bdgd-layer="UNTRD" checked> Transformadores</label>
+        <label><input type="checkbox" data-bdgd-layer="SUB" checked> Subestações</label>
+      </div>
+      <div id="bdgd-map" role="region" aria-label="Mapa da rede elétrica próxima ao campus da UFRB"></div>
+      <p class="bdgd-status" id="bdgd-status" role="status">Conectando ao serviço de dados…</p>
+      <p class="bdgd-attribution">Fonte: BDGD da ANEEL · Neoenergia Coelba. A posição e os atributos refletem a data-base do arquivo importado.</p>
+    </section>
+
+    <section class="campus-section" id="no-campus">
+      <div class="campus-text"><p class="eyebrow">CHEGAMOS AO CAMPUS</p><h2>Energia em<br>todo <em>lugar.</em></h2><p>A eletricidade se transforma em conforto, comunicação e conhecimento. Nos espaços da UFRB, ela apoia aulas, pesquisas, serviços e encontros.</p><a class="text-link" href="?pagina=5">E o que acontece depois? <span>↗</span></a></div>
+      <div class="campus-cards">
+        <article class="use-card use-lab"><span class="use-icon">⌬</span><span class="use-index">01 / PESQUISA</span><h3>Ideias em<br>movimento.</h3><p>Equipamentos e laboratórios ajudam a transformar curiosidade em conhecimento.</p><div class="card-lines"></div></article>
+        <article class="use-card use-class"><span class="use-icon">▤</span><span class="use-index">02 / APRENDIZAGEM</span><h3>Espaços para<br>aprender.</h3><p>Iluminação e conectividade aproximam estudantes, educadores e saberes.</p><div class="card-sun"></div></article>
+        <article class="use-card use-life"><span class="use-icon">⌂</span><span class="use-index">03 / COTIDIANO</span><h3>Uma rotina<br>conectada.</h3><p>Da biblioteca aos serviços, a energia está presente em muitas atividades do dia.</p><div class="card-wave"></div></article>
+      </div>
+    </section>
+
+    <section class="action-section" id="agir"><div class="action-stamp">PEQUENAS<br>AÇÕES ✳<br>GRANDE<br>IMPACTO</div><div class="action-content"><p class="eyebrow">A ENERGIA TAMBÉM É SUA</p><h2>O próximo passo<br>é <em>com a gente.</em></h2><p>Usar energia com atenção é um cuidado coletivo. Que tal observar os espaços que você frequenta e conversar sobre como podemos cuidar melhor deles?</p><div class="action-prompt"><span>UM CONVITE PARA A COMUNIDADE</span><span>Observe · Converse · Compartilhe</span></div></div><div class="action-art" aria-hidden="true"><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div><div class="bulb">ϟ</div><span class="orbit-label">ENERGIA<br>EM COMUM</span></div></section>
+
+    <section class="closing"><span class="closing-mark">ϟ</span><p>A energia percorre caminhos.<br><strong>O futuro também.</strong></p><a href="?pagina=0" aria-label="Voltar ao início">↑</a></section>
+  </main>
+  <footer class="site-footer">
+    <div class="footer-feedback">
+      <div><p class="footer-eyebrow">SUA PARTICIPAÇÃO</p><h2>Responda a algumas perguntas sobre o que você viu por aqui.</h2></div>
+      <a class="footer-form-link" href="https://docs.google.com/forms/d/e/1FAIpQLScDIlGdEkFdBJ_xr1FzsnWf4BLPoupEdZ6lTE1r75E-_c8mdg/viewform" target="_blank" rel="noopener noreferrer">Acessar formulário <span aria-hidden="true">↗</span></a>
+    </div>
+    <div class="footer-meta"><span>PROJETO DE EXTENSÃO · UNIVERSIDADE FEDERAL DO RECÔNCAVO DA BAHIA</span><a href="?pagina=0">VOLTAR AO INÍCIO ↑</a><span>ENERGIA EM PERCURSO © 2026</span></div>
+  </footer>
+</body>
+</html>

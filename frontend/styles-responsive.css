@@ -1,0 +1,166 @@
+/* Layout fluido para manter linhas confortáveis em desktop, tablet e celular. */
+html,
+body {
+  min-width: 320px;
+}
+
+body {
+  overflow-wrap: break-word;
+}
+
+main,
+section,
+article,
+header,
+footer,
+.journey-layout,
+.route-maps-grid,
+.presentation-slide {
+  min-width: 0;
+}
+
+.hero-copy,
+.hero-lede,
+.strip-copy,
+.story-body,
+.section-heading > p,
+.campus-text,
+.action-content,
+.detail-article {
+  min-width: 0;
+}
+
+.hero h1 {
+  font-size: clamp(3.5rem, 8.5vw, 6.625rem);
+}
+
+.hero-lede,
+.strip-copy,
+.section-heading > p,
+.story-body > p:not(.story-index),
+.campus-text > p:not(.eyebrow),
+.action-content > p:not(.eyebrow),
+.detail-article section p {
+  max-width: 62ch;
+  line-height: 1.7;
+}
+
+.route-map-card header p,
+.routes-note,
+.routes-attribution,
+.bdgd-attribution,
+.presentation-note,
+.presentation-history p,
+.detail-fact p {
+  line-height: 1.65;
+}
+
+.route-stops li,
+.routes-attribution,
+.presentation-source,
+.presentation-history a {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 850px) {
+  .hero {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+    padding-top: 50px;
+  }
+
+  .hero-copy {
+    max-width: 620px;
+  }
+
+  .hero-art {
+    justify-self: center;
+    width: min(100%, 680px);
+  }
+
+  .hero h1 {
+    font-size: clamp(3.5rem, 10vw, 5.25rem);
+  }
+
+  .intro-strip {
+    padding-inline: 8%;
+  }
+
+  .action-section {
+    grid-template-columns: minmax(0, .45fr) minmax(0, 1.4fr);
+  }
+
+  .action-art {
+    grid-column: 1 / -1;
+    height: 180px;
+  }
+}
+
+@media (max-width: 620px) {
+  .hero {
+    padding: 42px 6% 38px;
+    gap: 22px;
+  }
+
+  .hero h1 {
+    font-size: clamp(3.25rem, 13vw, 4.75rem);
+    line-height: .98;
+    letter-spacing: -.065em;
+  }
+
+  .hero-lede,
+  .strip-copy,
+  .section-heading > p,
+  .story-body > p:not(.story-index),
+  .campus-text > p:not(.eyebrow),
+  .action-content > p:not(.eyebrow),
+  .detail-article section p {
+    font-size: 16px;
+    line-height: 1.65;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(2.5rem, 10vw, 3.1rem);
+  }
+
+  .story-body h3 {
+    font-size: clamp(2rem, 9vw, 2.5rem);
+  }
+
+  .campus-text h2 {
+    font-size: clamp(2.8rem, 11vw, 3.4rem);
+  }
+
+  .action-section {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .action-content h2 {
+    font-size: clamp(2.4rem, 10vw, 2.9rem);
+  }
+
+  .route-presentation,
+  .route-map-card,
+  .story-card {
+    max-width: 100%;
+  }
+
+  .presentation-copy,
+  .route-presentation {
+    padding-inline: 16px;
+  }
+
+  .detail-main {
+    width: 90%;
+  }
+
+  .detail-article h1 {
+    font-size: clamp(2.8rem, 11vw, 4rem);
+    line-height: 1.02;
+  }
+
+  .detail-article .detail-lede {
+    font-size: clamp(1.125rem, 5vw, 1.375rem);
+    line-height: 1.5;
+  }
+}

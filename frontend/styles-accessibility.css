@@ -1,0 +1,46 @@
+/* Leitura mais confortável e indicadores claros para quem navega por teclado. */
+body{font-size:16px;line-height:1.6}
+.topbar nav{font-size:14px}
+.brand{font-size:13px}
+.top-cta,.button{font-size:14px}
+.eyebrow{font-size:11px;color:#526653}
+.hero-lede,.strip-copy,.section-heading>p,.campus-text>p:not(.eyebrow),.action-content>p:not(.eyebrow){font-size:15px;line-height:1.75}
+.hero-meta,.art-label,.art-coord,.hero-side,.route-head,.route-foot,.story-category,.story-index,.story-bottom>span,.story-more,.action-prompt,footer{font-size:10px}
+.route-stop{font-size:14px;min-height:48px}
+.stop-number{font-size:10px}
+.story-body>p:not(.story-index){font-size:14px;line-height:1.75}
+.fact-box p{font-size:12px;line-height:1.7}
+.arrow-button{width:44px;height:44px}
+.use-index{font-size:10px}
+.use-card p{font-size:12px;line-height:1.75}
+.action-stamp,.orbit-label{font-size:10px}
+.route-color-tag{font-size:10px;color:#526453}
+.route-map-card header p,.route-stops li{font-size:12px}
+.routes-note{font-size:12px;color:#59685d}
+.routes-attribution{font-size:10px;color:#59685d}
+.bdgd-toolbar label{font-size:12px}
+.bdgd-status,.bdgd-attribution{font-size:12px}
+.presentation-heading>p{font-size:14px}
+.presentation-choices button{font-size:14px}
+.presentation-choices button span,.presentation-photo>span,.presentation-progress,.presentation-kicker{font-size:10px}
+.presentation-copy>p:not(.presentation-kicker){font-size:14px;line-height:1.75}
+.presentation-copy .presentation-detail{font-size:12px!important}
+.presentation-controls button{font-size:13px}
+.presentation-note{font-size:10px}
+.presentation-source{font-size:12px}
+.presentation-history p{font-size:13px;line-height:1.7}
+.presentation-history h5{font-size:10px}
+.presentation-history a{font-size:11px}
+footer{line-height:1.6}
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:3px solid #b06c2f;outline-offset:3px;border-radius:3px}
+.skip-link:focus-visible{top:12px}
+button:disabled{cursor:not-allowed}
+@media(max-width:620px){
+  .topbar nav a{font-size:13px}
+  .hero-meta,.route-foot{font-size:9px}
+  .route-stop{font-size:12px}
+  .route-map-card header p,.route-stops li{font-size:12px}
+  .bdgd-toolbar label{font-size:11px}
+  .presentation-photo>span{font-size:9px}
+  .arrow-button{width:44px;height:44px}
+}

@@ -91,6 +91,10 @@ Toda alteração no código deve ser registrada neste README na mesma contribui�
 
 ## Histórico de alterações
 
+- **2026-11-26** — Remoção do título do rodapé e uso do convite para responder perguntas como chamada principal. Arquivos: `index.html`, `frontend/index.html`, `README.md`.
+
+- **2026-11-26** — Inclusão de chamada para coletar as impressões dos visitantes sobre o conteúdo visto no site, com link para o Google Forms e layout responsivo. Arquivos: `index.html`, `frontend/index.html`, `styles.css`, `frontend/styles.css`, `README.md`.
+
 - **2026-11-21** — Organização das seções em seis capítulos navegáveis por URL, com controles de avançar/retroceder, progresso e links entre capítulos; atualização do tamanho dos mapas ao abrir um capítulo. Arquivos: `index.html`, `chapters.js`, `styles-chapters.css`, `route-maps.js`, `bdgd-map.js`, `README.md`.
 - **2026-11-21** — Padronização da tipografia com corpo de texto em 16 px e rótulos de interface com pelo menos 12 px, inclusive nas páginas de detalhe e em telas pequenas. Arquivos: `index.html`, `detalhe.html`, `styles-typography.css`, `README.md`.
 
